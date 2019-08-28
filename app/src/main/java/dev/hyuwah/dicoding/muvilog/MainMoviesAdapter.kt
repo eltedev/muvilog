@@ -13,13 +13,8 @@ class MainMoviesAdapter(var context: Context, var onClick: (Movie) -> Unit) : Ba
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.row_main_movies, parent, false)
-
-        ViewHolder(view).apply {
-            bind(movies[position], onClick)
-        }
-
+        ViewHolder(view).apply { bind(movies[position], onClick) }
         return view
-
     }
 
     override fun getItem(position: Int): Any = movies[position]
@@ -28,7 +23,7 @@ class MainMoviesAdapter(var context: Context, var onClick: (Movie) -> Unit) : Ba
 
     override fun getCount(): Int = movies.size
 
-    inner class ViewHolder(var view: View) {
+    inner class ViewHolder(private var view: View) {
 
         fun bind(movie: Movie, onClick: (Movie) -> Unit) = with(view) {
             cv_container.setOnClickListener { onClick.invoke(movie) }
