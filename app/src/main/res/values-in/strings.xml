@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Muvilog</string>
+    <string name="detail_activity_title">Detil</string>
+    <string name="lang_title">Bahasa</string>
+    <string name="pref_general_category">Umum</string>
+    <string name="tab_title_movie">Movie</string>
+    <string name="tab_title_tv_show">Serial TV</string>
+    <string name="title_activity_settings">Pengaturan</string>
+    <string name="detail_runtime">Durasi: %d menit</string>
+    <string name="detail_synopsis">Ringkasan</string>
+    <string name="detail_rating">Rating: %s</string>
+    <string name="runtime_mins">%d menit</string>
+</resources>
