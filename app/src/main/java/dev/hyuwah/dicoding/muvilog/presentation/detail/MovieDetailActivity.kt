@@ -7,6 +7,8 @@ import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
 import dev.hyuwah.dicoding.muvilog.presentation.model.Movie
 import dev.hyuwah.dicoding.muvilog.presentation.model.TVShow
 import kotlinx.android.synthetic.main.activity_movie_detail.*
+import kotlinx.android.synthetic.main.view_detail_description.*
+import kotlinx.android.synthetic.main.view_detail_rounded_poster_with_shadow.*
 
 class MovieDetailActivity : BaseActivity() {
 
