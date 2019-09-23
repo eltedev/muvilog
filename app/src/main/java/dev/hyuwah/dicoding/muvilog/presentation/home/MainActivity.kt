@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
+import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.MainViewPagerAdapter
 import dev.hyuwah.dicoding.muvilog.presentation.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 

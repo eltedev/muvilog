@@ -1,4 +1,4 @@
-package dev.hyuwah.dicoding.muvilog.presentation.home
+package dev.hyuwah.dicoding.muvilog.presentation.home.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +35,7 @@ class TvShowsAdapter(var onClick: (TVShow) -> Unit) :
             tv_list_title.text = tvShow.title
             tv_list_genre.text = tvShow.genre
             tv_list_rating.text = tvShow.rating
-            tv_list_runtime.text = itemView.context.getString(R.string.runtime_mins, tvShow.runtime)
+            tv_list_release_date.text = itemView.context.getString(R.string.runtime_mins, tvShow.runtime)
             iv_list_poster.setImageResource(tvShow.poster)
         }
     }

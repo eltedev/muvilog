@@ -1,4 +1,4 @@
-package dev.hyuwah.dicoding.muvilog.presentation.home
+package dev.hyuwah.dicoding.muvilog.presentation.home.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

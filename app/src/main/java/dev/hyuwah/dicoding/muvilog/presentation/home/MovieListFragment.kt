@@ -7,13 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.hyuwah.dicoding.muvilog.R
-import dev.hyuwah.dicoding.muvilog.data.DataHelper
 import dev.hyuwah.dicoding.muvilog.presentation.detail.MovieDetailActivity
+import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.MoviesAdapter
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 
 class MovieListFragment : Fragment() {
+
+    lateinit var viewModel: MovieListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +40,16 @@ class MovieListFragment : Fragment() {
             }
             startActivity(intent)
         }
-        adapter.setMovieList(DataHelper.generateMovieList())
+
         rv_movie_list.layoutManager = LinearLayoutManager(requireContext())
         rv_movie_list.adapter = adapter
+
+        viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
+        viewModel.discoverMovies.observe(this, Observer {
+            println("Item: $it")
+            adapter.setMovieList(it)
+        })
+
     }
 
 }

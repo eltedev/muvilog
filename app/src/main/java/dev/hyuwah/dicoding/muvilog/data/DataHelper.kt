@@ -6,6 +6,8 @@ import dev.hyuwah.dicoding.muvilog.presentation.model.TVShow
 
 object DataHelper {
 
+    const val IMG_BASE_URL = "https://image.tmdb.org/t/p/"
+
     fun generateMovieList(): ArrayList<Movie> {
         return arrayListOf(
             Movie(

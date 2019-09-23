@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.data.DataHelper
 import dev.hyuwah.dicoding.muvilog.presentation.detail.MovieDetailActivity
+import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.TvShowsAdapter
 import kotlinx.android.synthetic.main.fragment_tv_show_list.*
 
 class TvShowListFragment : Fragment() {
