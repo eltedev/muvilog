@@ -6,18 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.presentation.detail.MovieDetailActivity
 import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.MoviesAdapter
+import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
+import dev.hyuwah.dicoding.muvilog.presentation.model.base.Resource
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 class MovieListFragment : Fragment() {
 
     private lateinit var viewModel: MovieListViewModel
+    private lateinit var adapter: MoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,24 +32,39 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = MoviesAdapter {
-            startActivity<MovieDetailActivity>(
-                MovieDetailActivity.MOVIE_KEY to it
-            )
+        adapter = MoviesAdapter {
+            startActivity<MovieDetailActivity>(MovieDetailActivity.MOVIE_KEY to it)
         }
 
         rv_movie_list.layoutManager = LinearLayoutManager(requireContext())
         rv_movie_list.adapter = adapter
 
-        showLoading(true)
-
         viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
-        viewModel.discoverMovies.observe(this, Observer {
-            showLoading(false)
-            println("Item: $it")
-            adapter.setMovieList(it)
-        })
+        viewModel.discoverMovies.observe(this, ::updateUI)
 
+    }
+
+    private fun updateUI(resource: Resource<List<MovieItem>>){
+        showNoInternetView(false)
+        when(resource){
+            is Resource.Loading -> {
+                showLoading(true)
+            }
+            is Resource.Success -> {
+                println("Item: $resource")
+                showLoading(false)
+                adapter.setMovieList(resource.data)
+            }
+            is Resource.Failure -> {
+                showLoading(false)
+                showNoInternetView(true)
+                toast("Error ${resource.throwable.localizedMessage}")
+            }
+        }
+    }
+
+    private fun showNoInternetView(toggle: Boolean){
+        tv_no_internet.visibility = if(toggle) View.VISIBLE else View.GONE
     }
 
     private fun showLoading(toggle: Boolean){

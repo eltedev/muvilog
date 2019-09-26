@@ -11,4 +11,5 @@
     <string name="detail_synopsis">Ringkasan</string>
     <string name="detail_rating">Rating: %s</string>
     <string name="runtime_mins">%d menit</string>
+    <string name="no_internet_connection">Tidak Ada Koneksi Internet</string>
 </resources>

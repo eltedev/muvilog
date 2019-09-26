@@ -24,4 +24,13 @@
         android:clipToPadding="false"
         />
 
+    <TextView
+        android:id="@+id/tv_no_internet"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_gravity="center"
+        android:text="@string/no_internet_connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
 </FrameLayout>

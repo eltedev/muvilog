@@ -46,10 +46,6 @@ dependencies {
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
     implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
 
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha05"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha05"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha05"
-
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     kapt 'com.github.bumptech.glide:glide:4.9.0'
 
@@ -62,6 +58,11 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    def lifecycle_ktx_version='2.2.0-alpha05'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_ktx_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_ktx_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_ktx_version"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.1.0'
