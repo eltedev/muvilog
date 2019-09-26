@@ -4,18 +4,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import dev.hyuwah.dicoding.muvilog.R
-import dev.hyuwah.dicoding.muvilog.presentation.model.TVShow
+import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
+import dev.hyuwah.dicoding.muvilog.toNormalDateFormat
 import kotlinx.android.synthetic.main.row_main_movies.view.*
 
-class TvShowsAdapter(var onClick: (TVShow) -> Unit) :
+class TvShowsAdapter(var onClick: (MovieItem) -> Unit) :
     RecyclerView.Adapter<TvShowsAdapter.ViewHolder>() {
 
-    private var tvShows = arrayListOf<TVShow>()
+    private var tvShows = arrayListOf<MovieItem>()
 
-    fun setTvShowList(newTVShowList: MutableList<TVShow>){
+    fun setTvShowList(newTVShowList: List<MovieItem>){
         tvShows.clear()
         tvShows.addAll(newTVShowList)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,13 +33,14 @@ class TvShowsAdapter(var onClick: (TVShow) -> Unit) :
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(tvShow: TVShow, onClick: (TVShow) -> Unit) = with(itemView) {
+        fun bind(tvShow: MovieItem, onClick: (MovieItem) -> Unit) = with(itemView) {
             setOnClickListener { onClick(tvShow) }
             tv_list_title.text = tvShow.title
-            tv_list_genre.text = tvShow.genre
-            tv_list_rating.text = tvShow.rating
-            tv_list_release_date.text = itemView.context.getString(R.string.runtime_mins, tvShow.runtime)
-            iv_list_poster.setImageResource(tvShow.poster)
+            tv_list_title.isSelected = true
+            Glide.with(itemView).load(tvShow.posterUrl).into(iv_list_poster)
+            tv_list_rating.text = "${tvShow.voteAverage}"
+            tv_list_genre.text = "${tvShow.voteCount} voters"
+            tv_list_release_date.text = tvShow.releaseDate.toNormalDateFormat()
         }
     }
 }

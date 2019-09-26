@@ -41,6 +41,11 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.preference:preference-ktx:1.1.0"
 
+    // Anko Commons
+    def anko_version='0.10.8'
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
+
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha05"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha05"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha05"

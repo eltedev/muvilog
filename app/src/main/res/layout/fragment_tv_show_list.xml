@@ -5,11 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".presentation.home.TvShowListFragment">
 
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tv_show_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/row_main_movies"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:clipToPadding="false"
         />
 
 </FrameLayout>
