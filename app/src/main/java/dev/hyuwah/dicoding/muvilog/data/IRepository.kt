@@ -1,5 +1,7 @@
 package dev.hyuwah.dicoding.muvilog.data
 
+import androidx.lifecycle.LiveData
+import dev.hyuwah.dicoding.muvilog.data.local.entity.FavoriteMovie
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 
 interface IRepository {
@@ -11,5 +13,12 @@ interface IRepository {
      suspend fun fetchNowPlayingMovies()
 
      suspend fun fetchPopularTvShow()
+
+    fun getFavoriteMovies(): LiveData<List<FavoriteMovie>>
+    fun getFavoriteTvShow(): LiveData<List<FavoriteMovie>>
+    fun getAllFavorite(): List<FavoriteMovie>
+    suspend fun getFavoriteMovie(movieId: Int): FavoriteMovie?
+    suspend fun removeFavorite(movieId: Int)
+    suspend fun addFavorite(favoriteMovie: FavoriteMovie)
 
 }

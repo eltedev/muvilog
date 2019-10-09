@@ -1,4 +1,4 @@
-package dev.hyuwah.dicoding.muvilog.data.remote
+package dev.hyuwah.dicoding.muvilog.data.remote.model
 
 
 import com.squareup.moshi.Json

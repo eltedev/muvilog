@@ -3,6 +3,8 @@ package dev.hyuwah.dicoding.muvilog.presentation.home.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dev.hyuwah.dicoding.muvilog.R
@@ -13,28 +15,32 @@ import kotlinx.android.synthetic.main.row_main_movies.view.*
 class MoviesAdapter(var onClick: (MovieItem) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
-    private var movies = arrayListOf<MovieItem>()
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieItem>() {
+        override fun areContentsTheSame(oldItem: MovieItem, newItem: MovieItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areItemsTheSame(oldItem: MovieItem, newItem: MovieItem): Boolean {
+            return oldItem == newItem
+        }
+    }
+    private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     fun setMovieList(newMovies: List<MovieItem>) {
-        movies.clear()
-        movies.addAll(newMovies)
-        notifyDataSetChanged()
+        differ.submitList(newMovies)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.row_main_movies,
-                parent,
-                false
-            )
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.row_main_movies, parent, false)
         )
     }
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int = differ.currentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(movies[position], onClick)
+        holder.bind(differ.currentList[position], onClick)
     }
 
     inner class ViewHolder(private var view: View) : RecyclerView.ViewHolder(view) {

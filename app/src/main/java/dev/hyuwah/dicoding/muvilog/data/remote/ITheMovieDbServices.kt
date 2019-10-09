@@ -2,6 +2,7 @@ package dev.hyuwah.dicoding.muvilog.data.remote
 
 import dev.hyuwah.dicoding.muvilog.data.remote.model.DiscoverMoviesResponse
 import dev.hyuwah.dicoding.muvilog.data.remote.model.DiscoverTvResponse
+import dev.hyuwah.dicoding.muvilog.data.remote.model.MoviesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

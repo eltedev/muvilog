@@ -1,4 +1,4 @@
-package dev.hyuwah.dicoding.muvilog.presentation.home
+package dev.hyuwah.dicoding.muvilog.presentation.home.list
 
 
 import android.os.Bundle
@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.hyuwah.dicoding.muvilog.R
-import dev.hyuwah.dicoding.muvilog.presentation.detail.MovieDetailActivity
 import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.MoviesAdapter
+import dev.hyuwah.dicoding.muvilog.presentation.home.detail.MovieDetailActivity
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import dev.hyuwah.dicoding.muvilog.presentation.model.base.Resource
 import kotlinx.android.synthetic.main.fragment_movie_list.*
@@ -40,8 +40,10 @@ class MovieListFragment : Fragment() {
         rv_movie_list.adapter = adapter
 
         viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
-        viewModel.discoverMovies.observe(this, ::updateUI)
+        viewModel.state.observe(this, ::updateUI)
+        viewModel.load()
 
+        srl_movie_list.setOnRefreshListener { viewModel.load() }
     }
 
     private fun updateUI(resource: Resource<List<MovieItem>>){
@@ -51,7 +53,6 @@ class MovieListFragment : Fragment() {
                 showLoading(true)
             }
             is Resource.Success -> {
-                println("Item: $resource")
                 showLoading(false)
                 adapter.setMovieList(resource.data)
             }
@@ -68,7 +69,7 @@ class MovieListFragment : Fragment() {
     }
 
     private fun showLoading(toggle: Boolean){
-        pb_loading.visibility = if(toggle) View.VISIBLE else View.GONE
+        srl_movie_list.isRefreshing = toggle
     }
 
 }
