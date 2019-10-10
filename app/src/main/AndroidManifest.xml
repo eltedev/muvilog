@@ -21,7 +21,8 @@
         </activity>
         <activity
             android:name="dev.hyuwah.dicoding.muvilog.presentation.home.detail.MovieDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name=".presentation.home.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

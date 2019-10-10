@@ -41,7 +41,7 @@ class TvShowListFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(TvShowListViewModel::class.java)
         viewModel.state.observe(this, ::updateUI)
-        viewModel.load()
+        if (savedInstanceState==null) viewModel.load()
 
         srl_tv_show_list.setOnRefreshListener { viewModel.load() }
     }

@@ -41,7 +41,7 @@ class MovieListFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
         viewModel.state.observe(this, ::updateUI)
-        viewModel.load()
+        if (savedInstanceState==null) viewModel.load()
 
         srl_movie_list.setOnRefreshListener { viewModel.load() }
     }

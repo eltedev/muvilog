@@ -31,8 +31,8 @@ class HomeListFragment : Fragment() {
 
         tl_category.setupWithViewPager(vp_category)
         vp_category.adapter = MainViewPagerAdapter(childFragmentManager).apply {
-            addFragment(MovieListFragment(), getString(R.string.tab_title_movie))
-            addFragment(TvShowListFragment(), getString(R.string.tab_title_tv_show))
+            addFragment(MovieListFragment().apply { retainInstance = true }, getString(R.string.tab_title_movie))
+            addFragment(TvShowListFragment().apply { retainInstance = true }, getString(R.string.tab_title_tv_show))
         }
     }
 

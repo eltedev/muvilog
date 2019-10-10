@@ -2,7 +2,8 @@ package dev.hyuwah.dicoding.muvilog.data.remote.model
 
 
 import com.squareup.moshi.Json
-import dev.hyuwah.dicoding.muvilog.asImageUrl
+import dev.hyuwah.dicoding.muvilog.asBackdropUrl
+import dev.hyuwah.dicoding.muvilog.asPosterUrl
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 
 data class DiscoverTvResponse(
@@ -50,8 +51,8 @@ fun DiscoverTvResponse.toPresentation() : List<MovieItem> {
         MovieItem(
             it.id,
             it.name,
-            it.posterPath.orEmpty().asImageUrl(),
-            it.backdropPath.orEmpty().asImageUrl(),
+            it.posterPath.orEmpty().asPosterUrl(),
+            it.backdropPath.orEmpty().asBackdropUrl(),
             it.firstAirDate,
             it.overview,
             it.voteAverage,

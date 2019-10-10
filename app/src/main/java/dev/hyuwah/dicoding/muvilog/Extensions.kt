@@ -13,7 +13,8 @@ fun Activity.setLocale(locale: Locale) {
     resources.updateConfiguration(config, resources.displayMetrics)
 }
 
-fun String.asImageUrl() = DataHelper.IMG_BASE_URL + "w185" + this
+fun String.asPosterUrl() = DataHelper.IMG_BASE_URL + "w185" + this
+fun String.asBackdropUrl() = DataHelper.IMG_BASE_URL + "w780" + this
 
 fun String.toNormalDateFormat(): String {
     val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(this)

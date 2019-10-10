@@ -1,6 +1,7 @@
 package dev.hyuwah.dicoding.muvilog.presentation.home.detail
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
@@ -26,19 +27,21 @@ class MovieDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = getString(R.string.detail_activity_title)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
 
         viewModel = ViewModelProviders.of(this).get(MovieDetailViewModel::class.java)
 
         val movie = intent.getParcelableExtra<MovieItem>(MOVIE_KEY)
         movie?.let {
+            supportActionBar?.title = getString(R.string.tab_title_movie)
             viewModel.setMovieAndType(it, MOVIE_KEY)
             setupView(it)
         }
 
         val tvShow = intent.getParcelableExtra<MovieItem>(TV_SHOW_KEY)
         tvShow?.let {
+            supportActionBar?.title = getString(R.string.tab_title_tv_show)
             viewModel.setMovieAndType(it, TV_SHOW_KEY)
             setupView(it)
         }
@@ -68,5 +71,10 @@ class MovieDetailActivity : BaseActivity() {
         tv_detail_runtime.text = movieItem.releaseDate.toNormalDateFormat()
         tv_detail_rating.text = movieItem.voteAverage.toString()
         tv_detail_overview.text = movieItem.overview
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
     }
 }

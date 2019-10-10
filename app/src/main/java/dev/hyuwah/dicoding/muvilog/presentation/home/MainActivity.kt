@@ -9,22 +9,31 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    private val homeListFragment = HomeListFragment()
-    private val favoriteListFragment = FavoriteListFragment.newInstance()
-    lateinit var currentActive: Fragment
+    private lateinit var homeListFragment: HomeListFragment
+    private lateinit var favoriteListFragment: FavoriteListFragment
+    private lateinit var currentActive: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        resetFragmentManager()
+        homeListFragment =
+            supportFragmentManager.findFragmentByTag(TAG_HOME_LIST) as? HomeListFragment
+                ?: HomeListFragment().apply { retainInstance = true }
 
-        supportFragmentManager.beginTransaction()
-            .add(R.id.content_fl_main, favoriteListFragment, TAG_FAVORITE_LIST)
-            .hide(favoriteListFragment)
-            .add(R.id.content_fl_main, homeListFragment, TAG_HOME_LIST)
-            .commit()
+        favoriteListFragment =
+            supportFragmentManager.findFragmentByTag(TAG_FAVORITE_LIST) as? FavoriteListFragment
+                ?: FavoriteListFragment().apply { retainInstance = true }
+
         currentActive = homeListFragment
+
+        if(savedInstanceState==null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.content_fl_main, favoriteListFragment, TAG_FAVORITE_LIST)
+                .hide(favoriteListFragment)
+                .add(R.id.content_fl_main, homeListFragment, TAG_HOME_LIST)
+                .commit()
+        }
 
         root_bottom_nav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -41,17 +50,6 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState?.getInt("selectedItem")?.let {
-            root_bottom_nav.selectedItemId = it
-            when (root_bottom_nav.selectedItemId) {
-                R.id.action_home -> swapFragment(TAG_HOME_LIST)
-                R.id.action_favorite -> swapFragment(TAG_FAVORITE_LIST)
-            }
-        }
-    }
-
     private fun swapFragment(tag: String) {
         supportFragmentManager.findFragmentByTag(tag)?.let { fragment ->
             supportFragmentManager.beginTransaction()
@@ -61,15 +59,20 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun resetFragmentManager() {
-        supportFragmentManager.fragments.forEach {
-            supportFragmentManager.beginTransaction().remove(it).commit()
-        }
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("selectedItemId", root_bottom_nav.selectedItemId)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState?.getInt("selectedItem")?.let {
+            root_bottom_nav.selectedItemId = it
+            when (root_bottom_nav.selectedItemId) {
+                R.id.action_home -> swapFragment(TAG_HOME_LIST)
+                R.id.action_favorite -> swapFragment(TAG_FAVORITE_LIST)
+            }
+        }
     }
 
     companion object {
