@@ -15,4 +15,9 @@
     <string name="runtime_mins">%d mins</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="favorite_empty_desc">You have not favorited anything yet…</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="notify_saved_to_favorite">Saved to favorite</string>
+    <string name="notify_removed_from_favorite">Removed from favorite</string>
+    <string name="count_voters">%s voters</string>
 </resources>

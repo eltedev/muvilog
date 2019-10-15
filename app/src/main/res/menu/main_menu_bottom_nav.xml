@@ -5,14 +5,14 @@
         android:id="@+id/action_home"
         android:enabled="true"
         android:icon="@drawable/ic_movie_24dp"
-        android:title="Home"
+        android:title="@string/home"
         app:showAsAction="ifRoom"
         />
     <item
         android:id="@+id/action_favorite"
         android:enabled="true"
         android:icon="@drawable/ic_favorite_24dp"
-        android:title="Favorite"
+        android:title="@string/favorite"
         app:showAsAction="ifRoom"
         />
 </menu>

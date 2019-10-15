@@ -51,7 +51,7 @@ class MoviesAdapter(var onClick: (MovieItem) -> Unit) :
             tv_list_title.isSelected = true
             Glide.with(itemView).load(movie.posterUrl).into(iv_list_poster)
             tv_list_rating.text = "${movie.voteAverage}"
-            tv_list_genre.text = "${movie.voteCount} voters"
+            tv_list_genre.text = String.format(context.getString(R.string.count_voters), movie.voteCount)
             tv_list_release_date.text = movie.releaseDate.toNormalDateFormat()
         }
     }

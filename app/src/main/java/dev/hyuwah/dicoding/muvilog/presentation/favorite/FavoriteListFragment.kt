@@ -21,10 +21,6 @@ import org.jetbrains.anko.support.v4.startActivity
 
 class FavoriteListFragment : Fragment(), FavoriteListAdapter.Interaction {
 
-    companion object {
-        fun newInstance() = FavoriteListFragment()
-    }
-
     private lateinit var viewModel: FavoriteListViewModel
     private lateinit var adapter: FavoriteListAdapter
 
@@ -38,7 +34,7 @@ class FavoriteListFragment : Fragment(), FavoriteListAdapter.Interaction {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (act as BaseActivity).setSupportActionBar(toolbar)
-        toolbar.title = "Favorites"
+        toolbar.title = getString(R.string.favorite)
 
         rv_favorite.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)

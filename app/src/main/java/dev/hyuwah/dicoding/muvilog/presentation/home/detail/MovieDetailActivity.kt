@@ -50,13 +50,13 @@ class MovieDetailActivity : BaseActivity() {
             if (isFavorite) {
                 fab_favorite.setImageResource(R.drawable.ic_favorite_24dp)
                 fab_favorite.setOnClickListener {
-                    toast("Remove from favorite")
+                    toast(getString(R.string.notify_removed_from_favorite))
                     viewModel.removeFromFavorite()
                 }
             } else {
                 fab_favorite.setImageResource(R.drawable.ic_favorite_border_24dp)
                 fab_favorite.setOnClickListener {
-                    toast("Save to favorite")
+                    toast(getString(R.string.notify_saved_to_favorite))
                     viewModel.saveToFavorite()
                 }
             }
@@ -67,7 +67,7 @@ class MovieDetailActivity : BaseActivity() {
         Glide.with(this).load(movieItem.posterUrl).into(iv_detail_poster)
         Glide.with(this).load(movieItem.backdropUrl).into(iv_backdrop)
         tv_detail_title.text = movieItem.title
-        tv_detail_genre.text = "${movieItem.voteCount} voters"
+        tv_detail_genre.text = String.format(getString(R.string.count_voters), movieItem.voteCount)
         tv_detail_runtime.text = movieItem.releaseDate.toNormalDateFormat()
         tv_detail_rating.text = movieItem.voteAverage.toString()
         tv_detail_overview.text = movieItem.overview
