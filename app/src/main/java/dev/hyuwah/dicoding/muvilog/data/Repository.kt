@@ -31,10 +31,19 @@ class Repository(
 
     }
 
+    override suspend fun searchMovie(query: String, lang: String): List<MovieItem> {
+        return tmdbServices.searchMovie(lang, query).toPresentation()
+    }
+
+    override suspend fun searchTv(query: String, lang: String): List<MovieItem> {
+        return tmdbServices.searchTv(lang, query).toPresentation()
+    }
+
     override fun getFavoriteMovies() = favoriteMovieDao.getFavoriteMovies()
     override fun getFavoriteTvShow() = favoriteMovieDao.getFavoriteTvShow()
     override fun getAllFavorite(): List<FavoriteMovie> = favoriteMovieDao.getAllFavorite()
     override suspend fun getFavoriteMovie(movieId: Int) = favoriteMovieDao.getFavoriteMovie(movieId)
     override suspend fun removeFavorite(movieId: Int) = favoriteMovieDao.delete(movieId)
     override suspend fun addFavorite(favoriteMovie: FavoriteMovie) = favoriteMovieDao.insert(favoriteMovie)
+
 }

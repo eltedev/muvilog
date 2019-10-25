@@ -21,4 +21,6 @@ interface IRepository {
     suspend fun removeFavorite(movieId: Int)
     suspend fun addFavorite(favoriteMovie: FavoriteMovie)
 
+    suspend fun searchMovie(query: String, lang: String): List<MovieItem>
+    suspend fun searchTv(query: String, lang: String): List<MovieItem>
 }

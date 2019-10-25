@@ -40,4 +40,19 @@ interface ITheMovieDbServices {
         @Query("language") lang: String,
         @Query("page") page: Int
     )
+
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("language") lang: String,
+        @Query("query") query: String
+    ): DiscoverMoviesResponse
+
+    @GET("search/tv")
+    suspend fun searchTv(
+        @Query("language") lang: String,
+        @Query("query") query: String
+    ): DiscoverTvResponse
+
+
+
 }
