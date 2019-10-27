@@ -18,7 +18,7 @@ data class DiscoverTvResponse(
 ) {
     data class Result(
         @Json(name = "backdrop_path")
-        val backdropPath: String? = null,
+        val backdropPath: String? = "",
         @Json(name = "first_air_date")
         val firstAirDate: String = "",
         @Json(name = "genre_ids")
@@ -38,7 +38,7 @@ data class DiscoverTvResponse(
         @Json(name = "popularity")
         val popularity: Double = 0.0,
         @Json(name = "poster_path")
-        val posterPath: String? = null,
+        val posterPath: String? = "",
         @Json(name = "vote_average")
         val voteAverage: Double = 0.0,
         @Json(name = "vote_count")

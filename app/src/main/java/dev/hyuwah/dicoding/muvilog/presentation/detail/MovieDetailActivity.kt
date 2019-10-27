@@ -1,4 +1,4 @@
-package dev.hyuwah.dicoding.muvilog.presentation.home.detail
+package dev.hyuwah.dicoding.muvilog.presentation.detail
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
+import dev.hyuwah.dicoding.muvilog.presentation.widget.FavoritesWidget
 import dev.hyuwah.dicoding.muvilog.toNormalDateFormat
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.view_detail_description.*
@@ -22,6 +23,7 @@ class MovieDetailActivity : BaseActivity() {
     }
 
     private lateinit var viewModel: MovieDetailViewModel
+    private lateinit var type: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +36,16 @@ class MovieDetailActivity : BaseActivity() {
 
         val movie = intent.getParcelableExtra<MovieItem>(MOVIE_KEY)
         movie?.let {
-            supportActionBar?.title = getString(R.string.tab_title_movie)
+            supportActionBar?.title = it.title
+            type = getString(R.string.tab_title_movie)
             viewModel.setMovieAndType(it, MOVIE_KEY)
             setupView(it)
         }
 
         val tvShow = intent.getParcelableExtra<MovieItem>(TV_SHOW_KEY)
         tvShow?.let {
-            supportActionBar?.title = getString(R.string.tab_title_tv_show)
+            supportActionBar?.title = it.title
+            type = getString(R.string.tab_title_tv_show)
             viewModel.setMovieAndType(it, TV_SHOW_KEY)
             setupView(it)
         }
@@ -66,7 +70,7 @@ class MovieDetailActivity : BaseActivity() {
     private fun setupView(movieItem: MovieItem){
         Glide.with(this).load(movieItem.posterUrl).into(iv_detail_poster)
         Glide.with(this).load(movieItem.backdropUrl).into(iv_backdrop)
-        tv_detail_title.text = movieItem.title
+        tv_detail_title.text = type
         tv_detail_genre.text = String.format(getString(R.string.count_voters), movieItem.voteCount)
         tv_detail_runtime.text = movieItem.releaseDate.toNormalDateFormat()
         tv_detail_rating.text = movieItem.voteAverage.toString()

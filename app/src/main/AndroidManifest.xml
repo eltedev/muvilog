@@ -20,9 +20,8 @@
                 android:value="dev.hyuwah.dicoding.muvilog.presentation.home.MainActivity" />
         </activity>
         <activity
-            android:name="dev.hyuwah.dicoding.muvilog.presentation.home.detail.MovieDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:name=".presentation.detail.MovieDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".presentation.home.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

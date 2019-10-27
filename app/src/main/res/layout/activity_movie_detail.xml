@@ -44,7 +44,7 @@
         android:background="#f4f4f4"
         android:fitsSystemWindows="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:context=".presentation.home.detail.MovieDetailActivity">
+        tools:context=".presentation.detail.MovieDetailActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -141,6 +141,8 @@
                 android:id="@+id/fab_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorSecondary"
+                app:tint="@android:color/white"
                 android:src="@drawable/ic_favorite_24dp"
                 app:layout_constraintBottom_toBottomOf="@id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -32,11 +32,19 @@ class Repository(
     }
 
     override suspend fun searchMovie(query: String, lang: String): List<MovieItem> {
-        return tmdbServices.searchMovie(lang, query).toPresentation()
+        return try {
+            tmdbServices.searchMovie(lang, query).toPresentation()
+        }catch (e: Throwable){
+            listOf()
+        }
     }
 
     override suspend fun searchTv(query: String, lang: String): List<MovieItem> {
-        return tmdbServices.searchTv(lang, query).toPresentation()
+        return try {
+            tmdbServices.searchTv(lang, query).toPresentation()
+        } catch (e: Throwable){
+            listOf()
+        }
     }
 
     override fun getFavoriteMovies() = favoriteMovieDao.getFavoriteMovies()

@@ -20,7 +20,7 @@ data class MoviesResponse(
         @Json(name = "adult")
         val adult: Boolean = false,
         @Json(name = "backdrop_path")
-        val backdropPath: String = "",
+        val backdropPath: String? = "",
         @Json(name = "genre_ids")
         val genreIds: List<Int> = listOf(),
         @Json(name = "id")
@@ -34,7 +34,7 @@ data class MoviesResponse(
         @Json(name = "popularity")
         val popularity: Double = 0.0,
         @Json(name = "poster_path")
-        val posterPath: String = "",
+        val posterPath: String? = "",
         @Json(name = "release_date")
         val releaseDate: String = "",
         @Json(name = "title")
@@ -61,8 +61,8 @@ fun MoviesResponse.toPresentation() : List<MovieItem> {
         MovieItem(
             it.id,
             it.title,
-            it.posterPath,
-            it.backdropPath,
+            it.posterPath.orEmpty(),
+            it.backdropPath.orEmpty(),
             it.releaseDate,
             it.overview,
             it.voteAverage,

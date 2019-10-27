@@ -9,6 +9,13 @@
         app:showAsAction="ifRoom"
         />
     <item
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_search_24dp"
+        android:title="@string/search"
+        app:showAsAction="ifRoom"
+        />
+    <item
         android:id="@+id/action_favorite"
         android:enabled="true"
         android:icon="@drawable/ic_favorite_24dp"

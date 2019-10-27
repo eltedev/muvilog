@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context=".presentation.favorite.FavoriteListFragment">
+    tools:context=".presentation.search.SearchFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,29 +17,33 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="noScroll"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-            />
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchview"
+            app:iconifiedByDefault="false"
+            android:background="@android:color/white"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_favorite"
+        android:id="@+id/rv_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         tools:listitem="@layout/row_movie_tv_item"
-        tools:itemCount="4"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        />
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     <TextView
         android:id="@+id/tv_empty_view"
-        android:layout_gravity="center"
-        tools:visibility="visible"
-        android:visibility="gone"
-        android:text="@string/favorite_empty_desc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Search result is empty"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

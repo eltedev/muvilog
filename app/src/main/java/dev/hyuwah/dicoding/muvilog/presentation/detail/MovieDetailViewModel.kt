@@ -1,4 +1,4 @@
-package dev.hyuwah.dicoding.muvilog.presentation.home.detail
+package dev.hyuwah.dicoding.muvilog.presentation.detail
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

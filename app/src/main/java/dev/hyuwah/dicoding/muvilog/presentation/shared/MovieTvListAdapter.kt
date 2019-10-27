@@ -1,4 +1,4 @@
-package dev.hyuwah.dicoding.muvilog.presentation.favorite
+package dev.hyuwah.dicoding.muvilog.presentation.shared
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +10,9 @@ import com.bumptech.glide.Glide
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.data.local.entity.FavoriteMovie
 import dev.hyuwah.dicoding.muvilog.toNormalDateFormat
-import kotlinx.android.synthetic.main.row_favorite_movie.view.*
+import kotlinx.android.synthetic.main.row_movie_tv_item.view.*
 
-class FavoriteListAdapter(private val interaction: Interaction? = null) :
+class MovieTvListAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<FavoriteMovie>() {
@@ -32,7 +32,7 @@ class FavoriteListAdapter(private val interaction: Interaction? = null) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.row_favorite_movie, parent, false),
+                .inflate(R.layout.row_movie_tv_item, parent, false),
             interaction
         )
     }
@@ -65,7 +65,7 @@ class FavoriteListAdapter(private val interaction: Interaction? = null) :
 
             tv_list_title.text = movie.title
             tv_list_title.isSelected = true
-            Glide.with(itemView).load(movie.posterUrl).into(iv_list_poster)
+            Glide.with(itemView).load(movie.posterUrl).placeholder(R.drawable.ic_launcher_background).into(iv_list_poster)
             tv_list_rating.text = "${movie.voteAverage}"
             tv_list_genre.text = String.format(context.getString(R.string.count_voters), movie.voteCount)
             tv_list_release_date.text = movie.releaseDate.toNormalDateFormat()

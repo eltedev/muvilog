@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.hyuwah.dicoding.muvilog.R
+import dev.hyuwah.dicoding.muvilog.presentation.detail.MovieDetailActivity
 import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.MoviesAdapter
-import dev.hyuwah.dicoding.muvilog.presentation.home.detail.MovieDetailActivity
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import dev.hyuwah.dicoding.muvilog.presentation.model.base.Resource
 import kotlinx.android.synthetic.main.fragment_movie_list.*
