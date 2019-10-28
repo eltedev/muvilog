@@ -21,4 +21,6 @@
     <string name="notify_saved_to_favorite">Saved to favorite</string>
     <string name="notify_removed_from_favorite">Removed from favorite</string>
     <string name="count_voters">%s voters</string>
+
+    <string name="widget_title">Favorites Movies &amp; TV Show</string>
 </resources>

@@ -1,5 +1,6 @@
 package dev.hyuwah.dicoding.muvilog.presentation.detail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Observer
@@ -64,10 +65,17 @@ class MovieDetailActivity : BaseActivity() {
                     viewModel.saveToFavorite()
                 }
             }
+            sendIntentToUpdateWidget()
         })
     }
 
-    private fun setupView(movieItem: MovieItem){
+    private fun sendIntentToUpdateWidget() {
+        sendBroadcast(Intent(this, FavoritesWidget::class.java).apply {
+            action = FavoritesWidget.UPDATE_WIDGET
+        })
+    }
+
+    private fun setupView(movieItem: MovieItem) {
         Glide.with(this).load(movieItem.posterUrl).into(iv_detail_poster)
         Glide.with(this).load(movieItem.backdropUrl).into(iv_backdrop)
         tv_detail_title.text = type
@@ -78,7 +86,7 @@ class MovieDetailActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == android.R.id.home) finish()
+        if (item?.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
 }
