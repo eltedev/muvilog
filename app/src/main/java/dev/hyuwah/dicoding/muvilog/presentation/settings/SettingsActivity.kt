@@ -7,6 +7,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
+import dev.hyuwah.dicoding.muvilog.services.NotificationAlarmService
 import dev.hyuwah.dicoding.muvilog.setLocale
 import java.util.*
 
@@ -45,7 +46,47 @@ class SettingsActivity : BaseActivity() {
                 true
             }
 
-            findPreference<SwitchPreferenceCompat>("setting_daily_reminder")
+            val notifAlarmService = NotificationAlarmService()
+
+            findPreference<SwitchPreferenceCompat>("setting_daily_reminder")?.setOnPreferenceChangeListener { preference, newValue ->
+                when (newValue) {
+                    true -> {
+                        notifAlarmService.setReminder(
+                            requireActivity(),
+                            NotificationAlarmService.Companion.TYPES.DAILY_REMINDER
+                        )
+                    }
+                    false -> {
+                        notifAlarmService.cancelReminder(
+                            requireActivity(),
+                            NotificationAlarmService.Companion.TYPES.DAILY_REMINDER
+                        )
+                    }
+                    else -> {
+                    }
+                }
+                true
+            }
+
+            findPreference<SwitchPreferenceCompat>("setting_release_today_reminder")?.setOnPreferenceChangeListener { preference, newValue ->
+                when (newValue) {
+                    true -> {
+                        notifAlarmService.setReminder(
+                            requireActivity(),
+                            NotificationAlarmService.Companion.TYPES.RELEASE_TODAY
+                        )
+                    }
+                    false -> {
+                        notifAlarmService.cancelReminder(
+                            requireActivity(),
+                            NotificationAlarmService.Companion.TYPES.RELEASE_TODAY
+                        )
+                    }
+                    else -> {
+                    }
+                }
+                true
+            }
         }
     }
 }

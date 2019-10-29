@@ -23,6 +23,10 @@
                 android:resource="@xml/favorites_widget_info" />
         </receiver>
 
+        <receiver android:name=".services.NotificationAlarmService"
+            android:enabled="true"
+            android:exported="true"/>
+
         <activity
             android:name=".presentation.settings.SettingsActivity"
             android:parentActivityName=".presentation.home.MainActivity">

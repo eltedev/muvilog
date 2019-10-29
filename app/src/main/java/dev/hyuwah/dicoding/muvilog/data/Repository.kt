@@ -5,6 +5,8 @@ import dev.hyuwah.dicoding.muvilog.data.local.entity.FavoriteMovie
 import dev.hyuwah.dicoding.muvilog.data.remote.ITheMovieDbServices
 import dev.hyuwah.dicoding.muvilog.data.remote.model.toPresentation
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Repository(
     private val tmdbServices: ITheMovieDbServices,
@@ -54,4 +56,12 @@ class Repository(
     override suspend fun removeFavorite(movieId: Int) = favoriteMovieDao.delete(movieId)
     override suspend fun addFavorite(favoriteMovie: FavoriteMovie) = favoriteMovieDao.insert(favoriteMovie)
 
+    override suspend fun getTodayReleasedMovies(): List<MovieItem> {
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        return try {
+            tmdbServices.getTodayReleasedMovies(today, today).toPresentation()
+        }catch (e: Throwable){
+            listOf()
+        }
+    }
 }

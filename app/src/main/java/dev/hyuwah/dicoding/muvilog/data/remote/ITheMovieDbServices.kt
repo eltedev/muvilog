@@ -53,6 +53,10 @@ interface ITheMovieDbServices {
         @Query("query") query: String
     ): DiscoverTvResponse
 
-
+    @GET("discover/movie")
+    suspend fun getTodayReleasedMovies(
+        @Query("primary_release_date.gte") releaseDateGte: String,
+        @Query("primary_release_date.lte") releaseDateLte: String
+    ): DiscoverMoviesResponse
 
 }

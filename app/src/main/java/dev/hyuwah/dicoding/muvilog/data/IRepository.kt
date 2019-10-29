@@ -23,4 +23,6 @@ interface IRepository {
 
     suspend fun searchMovie(query: String, lang: String): List<MovieItem>
     suspend fun searchTv(query: String, lang: String): List<MovieItem>
+
+    suspend fun getTodayReleasedMovies(): List<MovieItem>
 }
