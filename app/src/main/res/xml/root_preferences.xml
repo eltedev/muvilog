@@ -12,4 +12,15 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="Reminder">
+        <SwitchPreferenceCompat
+            app:key="setting_daily_reminder"
+            app:summaryOn="Daily reminder enabled every 7 AM"
+            app:title="Daily Reminder" />
+        <SwitchPreferenceCompat
+            app:key="setting_release_today_reminder"
+            app:summaryOn="Today's Release enabled every 8 AM"
+            app:title="Release Today Reminder" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

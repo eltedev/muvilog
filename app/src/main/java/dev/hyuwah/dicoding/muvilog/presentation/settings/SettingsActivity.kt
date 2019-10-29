@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
 import dev.hyuwah.dicoding.muvilog.setLocale
@@ -43,6 +44,8 @@ class SettingsActivity : BaseActivity() {
                 requireActivity().recreate()
                 true
             }
+
+            findPreference<SwitchPreferenceCompat>("setting_daily_reminder")
         }
     }
 }
