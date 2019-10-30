@@ -96,6 +96,7 @@ class NotificationAlarmService : BroadcastReceiver() {
             .setContentTitle(context.getString(R.string.reminder_daily_title))
             .setContentText(context.getString(R.string.reminder_daily_content_text))
             .setContentIntent(pendingIntent)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(context.getString(R.string.reminder_daily_content_text)))
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 

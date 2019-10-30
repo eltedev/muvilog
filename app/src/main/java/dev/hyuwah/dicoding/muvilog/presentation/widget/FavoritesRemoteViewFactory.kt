@@ -5,7 +5,7 @@ import android.os.Binder
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.data.Repository
 import dev.hyuwah.dicoding.muvilog.data.local.AppDatabase
@@ -43,8 +43,9 @@ class FavoritesRemoteViewFactory(private val context: Context): RemoteViewsServi
             val movieItem = widgetItems[position]
             view.setTextViewText(R.id.tv_favorites_item_title, movieItem.title)
 
-            val bitmap = Glide.with(context).asBitmap().load(movieItem.backdropUrl)
-                .apply(RequestOptions.fitCenterTransform())
+            val bitmap = Glide.with(context)
+                .asBitmap().load(movieItem.backdropUrl)
+                .transform(RoundedCorners(20))
                 .submit().get()
             view.setImageViewBitmap(R.id.iv_favorite_item, bitmap)
 

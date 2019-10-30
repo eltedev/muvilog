@@ -13,8 +13,8 @@ fun Activity.setLocale(locale: Locale) {
     resources.updateConfiguration(config, resources.displayMetrics)
 }
 
-fun String.asPosterUrl() = if (this.isEmpty()) "" else Constants.IMG_BASE_URL + "w185" + this
-fun String.asBackdropUrl() = if (this.isEmpty()) "" else Constants.IMG_BASE_URL + "w780" + this
+fun String.asPosterUrl() = if (this.isEmpty()) Constants.DEFAULT_POSTER_URL else Constants.IMG_BASE_URL + "w185" + this
+fun String.asBackdropUrl() = if (this.isEmpty()) Constants.DEFAULT_BACKDROP_URL else Constants.IMG_BASE_URL + "w780" + this
 
 fun String.toNormalDateFormat(): String {
     if (this.isEmpty() || this.isBlank()) return ""

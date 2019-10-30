@@ -24,7 +24,7 @@
     <string name="reminder_daily_content_text">Hey, jangan lupa untuk mengecek film atau tayangan tv baru hari ini di Muvilog</string>
     <string name="reminder_release_today_content_text">Berikut film-film yang dirilis hari ini</string>
     <string name="reminder_release_today_title">Rilis Hari Ini</string>
-    <string name="release_today_content"> di rilis hari ini!</string>
+    <string name="release_today_content">\u0020di rilis hari ini!</string>
     <string name="daily_reminder_title">Pengingat Harian</string>
     <string name="daily_reminder_summary_on">Pengingat harian aktif @ 7AM</string>
     <string name="today_release_reminder_summary_on">Pengingat rilis hari ini aktif @ 8AM</string>

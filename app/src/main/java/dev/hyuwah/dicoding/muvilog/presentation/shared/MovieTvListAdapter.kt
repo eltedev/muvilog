@@ -65,7 +65,7 @@ class MovieTvListAdapter(private val interaction: Interaction? = null) :
 
             tv_list_title.text = movie.title
             tv_list_title.isSelected = true
-            Glide.with(itemView).load(movie.posterUrl).placeholder(R.drawable.ic_launcher_background).into(iv_list_poster)
+            Glide.with(itemView).load(movie.posterUrl).into(iv_list_poster)
             tv_list_rating.text = "${movie.voteAverage}"
             tv_list_genre.text = String.format(context.getString(R.string.count_voters), movie.voteCount)
             tv_list_release_date.text = movie.releaseDate.toNormalDateFormat()

@@ -28,7 +28,7 @@
     <string name="reminder_release_today_content_text">Here are some movies that released today</string>
 
     <string name="widget_title">Favorites Movies &amp; TV Show</string>
-    <string name="release_today_content"> released today!</string>
+    <string name="release_today_content">\u0020released today!</string>
     <string name="daily_reminder_title">Daily Reminder</string>
     <string name="daily_reminder_summary_on">Daily reminder enabled @ 7AM</string>
     <string name="today_release_reminder_summary_on">Today\'s Release enabled @ 8AM</string>
