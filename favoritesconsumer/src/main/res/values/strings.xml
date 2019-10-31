@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Favorites Consumer</string>
+    <string name="count_voters">%s voters</string>
+</resources>

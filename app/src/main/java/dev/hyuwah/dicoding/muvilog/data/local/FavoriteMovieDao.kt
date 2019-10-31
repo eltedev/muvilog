@@ -1,5 +1,6 @@
 package dev.hyuwah.dicoding.muvilog.data.local
 
+import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -27,4 +28,9 @@ interface FavoriteMovieDao {
     @Query("DELETE FROM favorite_movie WHERE movie_id = :movieId")
     suspend fun delete(movieId: Int)
 
+    @Query("SELECT * FROM favorite_movie")
+    fun getAllFavoriteCursor(): Cursor
+
+    @Query("SELECT * FROM favorite_movie WHERE movie_id = :movieId")
+    fun getFavoriteMovieCursor(movieId: Int): Cursor
 }
