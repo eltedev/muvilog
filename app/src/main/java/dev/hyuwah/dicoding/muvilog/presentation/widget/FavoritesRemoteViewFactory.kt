@@ -42,17 +42,19 @@ class FavoritesRemoteViewFactory(private val context: Context): RemoteViewsServi
         try {
             val movieItem = widgetItems[position]
             view.setTextViewText(R.id.tv_favorites_item_title, movieItem.title)
+            val index = position+1
+            view.setTextViewText(R.id.tv_favorites_item_index, index.toString())
 
             val bitmap = Glide.with(context)
                 .asBitmap().load(movieItem.backdropUrl)
                 .transform(RoundedCorners(20))
-                .submit().get()
+                .submit(220,220).get()
             view.setImageViewBitmap(R.id.iv_favorite_item, bitmap)
 
             // TODO SEND PARCELABLE OR SEND ID
 //            val extras = Bundle()
 //            extras.putParcelable(FavoritesWidget.EXTRA_ITEM, movieItem)
-//            val fillIntent = Intent()
+//            val fillIntent = Intent(position.toString())
 //            fillIntent.putExtra(FavoritesWidget.EXTRA_ITEM, movieItem)
 //            fillIntent.putExtras(extras)
 //

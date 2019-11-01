@@ -12,7 +12,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
             <ImageView
                 android:id="@+id/iv_backdrop"
@@ -63,13 +63,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
             <ImageView
+                android:id="@+id/iv_bg_blur"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:adjustViewBounds="true"
                 android:background="@color/colorPrimary"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_bg_blur_scrim"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:adjustViewBounds="true"
+                android:background="#A0000000"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

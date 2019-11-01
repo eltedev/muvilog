@@ -28,6 +28,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:loopViews="true"
+            tools:listitem="@layout/favorites_widget_item"
             />
 
         <TextView

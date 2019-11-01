@@ -40,6 +40,8 @@ class SearchFragment : Fragment(), MovieTvListAdapter.Interaction {
         (act as BaseActivity).setSupportActionBar(toolbar)
         toolbar.title = getString(R.string.search)
 
+        srl_search.isEnabled = false
+
         rv_search.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
@@ -81,10 +83,11 @@ class SearchFragment : Fragment(), MovieTvListAdapter.Interaction {
     }
 
     private fun onLoading() {
-
+        srl_search.isRefreshing = true
     }
 
     private fun onLoadSuccess(results: List<FavoriteMovie>) {
+        srl_search.isRefreshing = false
         if (results.isNotEmpty()) {
             tv_empty_view.setGone()
             adapter.submitList(results)
@@ -95,6 +98,7 @@ class SearchFragment : Fragment(), MovieTvListAdapter.Interaction {
     }
 
     private fun onLoadFailure() {
+        srl_search.isRefreshing = false
     }
 
 

@@ -23,7 +23,7 @@ class SearchViewModel(app: Application) : AndroidViewModel(app) {
     )
     private var lang = SharedPrefSource(app).getCurrentLangId()
 
-    private val _state = MutableLiveData<Resource<List<FavoriteMovie>>>(Resource.Loading)
+    private val _state = MutableLiveData<Resource<List<FavoriteMovie>>>()
     val state: LiveData<Resource<List<FavoriteMovie>>> = _state
 
     fun search(query: String){
