@@ -39,7 +39,7 @@ class FavoritesAdapter(private val interaction: Interaction? = null) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder -> {
-                holder.bind(differ.currentList.get(position))
+                holder.bind(differ.currentList[position])
             }
         }
     }

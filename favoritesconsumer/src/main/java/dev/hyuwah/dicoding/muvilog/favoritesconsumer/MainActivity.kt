@@ -32,14 +32,17 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> 
     }
 
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
+        srl_favorite.isRefreshing = false
         data?.let{
-            movieData.clear()
-            movieData.addAll(CursorHelper.convertToListFavorite(data))
-            adapter.submitList(movieData)
+            val movies = CursorHelper.convertToListFavorite(data)
+            if(movies.isEmpty()) tv_empty_view.setVisible()
+            else tv_empty_view.setGone()
+            adapter.submitList(movies)
         }
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
+        srl_favorite.isRefreshing = true
         movieData.clear()
         adapter.submitList(movieData)
     }
@@ -49,6 +52,10 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> 
         setContentView(R.layout.activity_main)
         adapter = FavoritesAdapter()
         rv_favorite.adapter = adapter
+
+        srl_favorite.setOnRefreshListener {
+            supportLoaderManager.restartLoader(100, null, this)
+        }
 
         supportLoaderManager.initLoader(100, null, this)
     }
