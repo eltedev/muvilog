@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.hyuwah.dicoding.muvilog.R
@@ -20,7 +19,8 @@ import org.jetbrains.anko.support.v4.toast
 
 class MovieListFragment : Fragment() {
 
-    private lateinit var viewModel: MovieListViewModel
+//    @Inject
+    lateinit var viewModel: MovieListViewModel
     private lateinit var adapter: MoviesAdapter
 
     override fun onCreateView(
@@ -39,7 +39,7 @@ class MovieListFragment : Fragment() {
         rv_movie_list.layoutManager = LinearLayoutManager(requireContext())
         rv_movie_list.adapter = adapter
 
-        viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
         viewModel.state.observe(this, ::updateUI)
         if (savedInstanceState==null) viewModel.load()
 

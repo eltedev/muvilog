@@ -7,8 +7,9 @@ import dev.hyuwah.dicoding.muvilog.data.remote.model.toPresentation
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class Repository(
+class Repository @Inject constructor(
     private val tmdbServices: ITheMovieDbServices,
     private val favoriteMovieDao: FavoriteMovieDao
 ): IRepository {
