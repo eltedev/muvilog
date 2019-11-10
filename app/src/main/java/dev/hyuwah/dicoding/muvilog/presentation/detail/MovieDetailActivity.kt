@@ -4,13 +4,16 @@ import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import dev.hyuwah.dicoding.muvilog.R
-import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import dev.hyuwah.dicoding.muvilog.presentation.widget.FavoritesWidget
 import dev.hyuwah.dicoding.muvilog.toNormalDateFormat
@@ -19,25 +22,30 @@ import kotlinx.android.synthetic.main.view_detail_description.*
 import kotlinx.android.synthetic.main.view_detail_rounded_poster_with_shadow.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
+import javax.inject.Inject
 
-class MovieDetailActivity : BaseActivity() {
+class MovieDetailActivity : AppCompatActivity(), HasAndroidInjector {
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
     companion object {
         const val MOVIE_KEY = "movie"
         const val TV_SHOW_KEY = "tvshow"
     }
 
-    private lateinit var viewModel: MovieDetailViewModel
+    @Inject lateinit var viewModel: MovieDetailViewModel
     private lateinit var type: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidInjection.inject(this)
         setContentView(R.layout.activity_movie_detail)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-
-        viewModel = ViewModelProviders.of(this).get(MovieDetailViewModel::class.java)
 
         val movie = intent.getParcelableExtra<MovieItem>(MOVIE_KEY)
         movie?.let {

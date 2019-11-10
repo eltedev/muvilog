@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.android.support.DaggerFragment
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.presentation.detail.MovieDetailActivity
 import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.MoviesAdapter
@@ -16,10 +16,11 @@ import dev.hyuwah.dicoding.muvilog.presentation.model.base.Resource
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
+import javax.inject.Inject
 
-class MovieListFragment : Fragment() {
+class MovieListFragment : DaggerFragment() {
 
-//    @Inject
+    @Inject
     lateinit var viewModel: MovieListViewModel
     private lateinit var adapter: MoviesAdapter
 
@@ -39,7 +40,6 @@ class MovieListFragment : Fragment() {
         rv_movie_list.layoutManager = LinearLayoutManager(requireContext())
         rv_movie_list.adapter = adapter
 
-//        viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
         viewModel.state.observe(this, ::updateUI)
         if (savedInstanceState==null) viewModel.load()
 

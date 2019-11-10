@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.android.support.DaggerFragment
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.data.Constants
 import dev.hyuwah.dicoding.muvilog.data.local.entity.FavoriteMovie
@@ -22,10 +21,11 @@ import dev.hyuwah.dicoding.muvilog.setVisible
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.startActivity
+import javax.inject.Inject
 
-class SearchFragment : Fragment(), MovieTvListAdapter.Interaction {
+class SearchFragment : DaggerFragment(), MovieTvListAdapter.Interaction {
 
-    private lateinit var viewModel: SearchViewModel
+    @Inject lateinit var viewModel: SearchViewModel
     private lateinit var adapter: MovieTvListAdapter
 
     override fun onCreateView(
@@ -49,7 +49,6 @@ class SearchFragment : Fragment(), MovieTvListAdapter.Interaction {
 
         rv_search.adapter = adapter
 
-        viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
         viewModel.state.observe(this, ::updateUI)
 
         searchview.setOnQueryTextListener(searchListener)

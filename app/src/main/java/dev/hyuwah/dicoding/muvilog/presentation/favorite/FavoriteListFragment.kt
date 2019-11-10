@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.android.support.DaggerFragment
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.data.local.entity.FavoriteMovie
 import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
@@ -19,10 +18,11 @@ import dev.hyuwah.dicoding.muvilog.setVisible
 import kotlinx.android.synthetic.main.favorite_list_fragment.*
 import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.startActivity
+import javax.inject.Inject
 
-class FavoriteListFragment : Fragment(), MovieTvListAdapter.Interaction {
+class FavoriteListFragment : DaggerFragment(), MovieTvListAdapter.Interaction {
 
-    private lateinit var viewModel: FavoriteListViewModel
+    @Inject lateinit var viewModel: FavoriteListViewModel
     private lateinit var adapter: MovieTvListAdapter
 
     override fun onCreateView(
@@ -44,7 +44,6 @@ class FavoriteListFragment : Fragment(), MovieTvListAdapter.Interaction {
 
         rv_favorite.adapter = adapter
 
-        viewModel = ViewModelProviders.of(this).get(FavoriteListViewModel::class.java)
         viewModel.state.observe(this, ::updateUI)
     }
 

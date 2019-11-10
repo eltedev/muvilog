@@ -2,8 +2,9 @@ package dev.hyuwah.dicoding.muvilog.data.local
 
 import android.content.Context
 import org.jetbrains.anko.defaultSharedPreferences
+import javax.inject.Inject
 
-class SharedPrefSource(context: Context) {
+class SharedPrefSource @Inject constructor(context: Context) {
     private val sp = context.defaultSharedPreferences
 
     fun getCurrentLangId() : String {

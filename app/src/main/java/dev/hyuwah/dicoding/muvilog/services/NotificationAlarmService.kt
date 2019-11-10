@@ -4,25 +4,24 @@ import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import dagger.android.DaggerBroadcastReceiver
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.data.Repository
-import dev.hyuwah.dicoding.muvilog.data.local.AppDatabase
-import dev.hyuwah.dicoding.muvilog.data.remote.TheMovieDbServicesFactory
 import dev.hyuwah.dicoding.muvilog.presentation.home.MainActivity
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
 
-class NotificationAlarmService : BroadcastReceiver() {
+class NotificationAlarmService : DaggerBroadcastReceiver() {
 
     companion object {
         private const val TYPE = "type"
@@ -33,13 +32,18 @@ class NotificationAlarmService : BroadcastReceiver() {
         }
     }
 
+    @Inject
+    lateinit var repository: Repository
+
     override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
         val type = intent.getStringExtra(TYPE)
         when (type) {
             TYPES.DAILY_REMINDER.name -> showDailyReminder(context)
             TYPES.RELEASE_TODAY.name -> showReleaseToday(context)
         }
     }
+
 
     private fun getReminderTime(type: TYPES): Calendar {
         return Calendar.getInstance().apply {
@@ -114,10 +118,6 @@ class NotificationAlarmService : BroadcastReceiver() {
     }
 
     private fun showReleaseToday(context: Context) {
-        val repository = Repository(
-            TheMovieDbServicesFactory.create(),
-            AppDatabase.getInstance(context).favoriteMovieDao()
-        )
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val movies = repository.getTodayReleasedMovies()

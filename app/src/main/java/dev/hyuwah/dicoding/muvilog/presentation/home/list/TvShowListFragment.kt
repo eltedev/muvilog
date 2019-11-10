@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.android.support.DaggerFragment
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.presentation.detail.MovieDetailActivity
 import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.TvShowsAdapter
@@ -17,10 +16,12 @@ import dev.hyuwah.dicoding.muvilog.presentation.model.base.Resource
 import kotlinx.android.synthetic.main.fragment_tv_show_list.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
+import javax.inject.Inject
 
-class TvShowListFragment : Fragment() {
+class TvShowListFragment : DaggerFragment() {
 
-    private lateinit var viewModel: TvShowListViewModel
+    @Inject
+    lateinit var viewModel: TvShowListViewModel
     private lateinit var adapter: TvShowsAdapter
 
     override fun onCreateView(
@@ -39,7 +40,6 @@ class TvShowListFragment : Fragment() {
         rv_tv_show_list.layoutManager = LinearLayoutManager(requireContext())
         rv_tv_show_list.adapter = adapter
 
-        viewModel = ViewModelProviders.of(this).get(TvShowListViewModel::class.java)
         viewModel.state.observe(this, ::updateUI)
         if (savedInstanceState==null) viewModel.load()
 
