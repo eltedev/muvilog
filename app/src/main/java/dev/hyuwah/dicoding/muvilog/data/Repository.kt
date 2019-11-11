@@ -15,11 +15,19 @@ class Repository @Inject constructor(
 ): IRepository {
 
     override suspend fun fetchDiscoverMovies(lang: String) : List<MovieItem> {
-        return tmdbServices.getDiscoverMovies(lang, 1, "ID").toPresentation()
+        return try {
+            tmdbServices.getDiscoverMovies(lang, 1, "ID").toPresentation()
+        } catch (e: Throwable){
+            listOf()
+        }
     }
 
     override suspend fun fetchDiscoverTvShow(lang: String) : List<MovieItem> {
-        return tmdbServices.getDiscoverTvShow(lang, 1).toPresentation()
+        return try {
+            tmdbServices.getDiscoverTvShow(lang, 1).toPresentation()
+        } catch (e: Throwable) {
+            listOf()
+        }
     }
 
     override suspend fun fetchPopularMovies()  {

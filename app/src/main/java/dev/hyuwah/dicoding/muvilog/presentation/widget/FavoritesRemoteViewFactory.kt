@@ -8,17 +8,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.data.Repository
-import dev.hyuwah.dicoding.muvilog.data.local.AppDatabase
 import dev.hyuwah.dicoding.muvilog.data.local.entity.FavoriteMovie
-import dev.hyuwah.dicoding.muvilog.data.remote.TheMovieDbServicesFactory
 
-class FavoritesRemoteViewFactory(private val context: Context): RemoteViewsService.RemoteViewsFactory {
+class FavoritesRemoteViewFactory(private val context: Context, private val repository: Repository): RemoteViewsService.RemoteViewsFactory {
 
     private val widgetItems = ArrayList<FavoriteMovie>()
-    private val repository = Repository(
-        TheMovieDbServicesFactory.create(),
-        AppDatabase.getInstance(context).favoriteMovieDao()
-    )
 
     override fun onCreate() {
 

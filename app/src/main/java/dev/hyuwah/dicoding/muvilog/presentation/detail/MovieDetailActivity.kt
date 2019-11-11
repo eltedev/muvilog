@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.palette.graphics.Palette
@@ -14,6 +13,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dev.hyuwah.dicoding.muvilog.R
+import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import dev.hyuwah.dicoding.muvilog.presentation.widget.FavoritesWidget
 import dev.hyuwah.dicoding.muvilog.toNormalDateFormat
@@ -24,7 +24,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
-class MovieDetailActivity : AppCompatActivity(), HasAndroidInjector {
+class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>

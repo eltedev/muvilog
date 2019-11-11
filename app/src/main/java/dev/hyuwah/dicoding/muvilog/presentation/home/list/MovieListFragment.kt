@@ -13,6 +13,7 @@ import dev.hyuwah.dicoding.muvilog.presentation.detail.MovieDetailActivity
 import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.MoviesAdapter
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import dev.hyuwah.dicoding.muvilog.presentation.model.base.Resource
+import dev.hyuwah.dicoding.muvilog.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
@@ -50,13 +51,16 @@ class MovieListFragment : DaggerFragment() {
         showNoInternetView(false)
         when(resource){
             is Resource.Loading -> {
+                EspressoIdlingResource.increment()
                 showLoading(true)
             }
             is Resource.Success -> {
+                EspressoIdlingResource.decrement()
                 showLoading(false)
                 adapter.setMovieList(resource.data)
             }
             is Resource.Failure -> {
+                EspressoIdlingResource.decrement()
                 showLoading(false)
                 showNoInternetView(true)
                 toast("Error ${resource.throwable.localizedMessage}")
