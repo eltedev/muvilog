@@ -3,6 +3,7 @@ package dev.hyuwah.dicoding.muvilog.di
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import dev.hyuwah.dicoding.muvilog.data.IRepository
 import dev.hyuwah.dicoding.muvilog.data.Repository
 import dev.hyuwah.dicoding.muvilog.data.local.AppDatabase
@@ -14,13 +15,13 @@ import javax.inject.Singleton
 @Module
 class DataModule {
 
-    @Singleton
+    @Reusable
     @Provides
     fun provideFavoriteMovieDao(context: Context): FavoriteMovieDao{
         return AppDatabase.getInstance(context).favoriteMovieDao()
     }
 
-    @Singleton
+    @Reusable
     @Provides
     fun provideSharedprefSource(context: Context): SharedPrefSource {
         return SharedPrefSource(context)

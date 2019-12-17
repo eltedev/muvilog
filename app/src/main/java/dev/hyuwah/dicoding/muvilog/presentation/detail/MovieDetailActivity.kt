@@ -13,6 +13,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dev.hyuwah.dicoding.muvilog.R
+import dev.hyuwah.dicoding.muvilog.load
 import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import dev.hyuwah.dicoding.muvilog.presentation.widget.FavoritesWidget
@@ -88,8 +89,8 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
     }
 
     private fun setupView(movieItem: MovieItem) {
-        Glide.with(this).load(movieItem.posterUrl).into(iv_detail_poster)
-        Glide.with(this).load(movieItem.backdropUrl).into(iv_backdrop)
+        iv_detail_poster.load(movieItem.posterUrl, R.drawable.placeholder_poster_portrait)
+        iv_backdrop.load(movieItem.backdropUrl, R.drawable.placeholder_poster_landscape)
         tv_detail_title.text = type
         tv_detail_genre.text = String.format(getString(R.string.count_voters), movieItem.voteCount)
         tv_detail_runtime.text = movieItem.releaseDate.toNormalDateFormat()
@@ -113,7 +114,7 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
                         GradientDrawable.Orientation.TL_BR,
                         intArrayOf(darkVibrant, vibrant, muted, dominant)
                     )
-                    iv_bg_blur.background = gradient
+                    iv_bg_blur.load(gradient)
                 }
             }
         }

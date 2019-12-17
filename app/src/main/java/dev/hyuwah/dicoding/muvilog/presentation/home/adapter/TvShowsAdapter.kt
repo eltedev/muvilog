@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import dev.hyuwah.dicoding.muvilog.R
+import dev.hyuwah.dicoding.muvilog.load
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import dev.hyuwah.dicoding.muvilog.toNormalDateFormat
 import kotlinx.android.synthetic.main.row_main_movies.view.*
 
-class TvShowsAdapter(var onClick: (MovieItem) -> Unit) :
+class TvShowsAdapter(private var onClick: (MovieItem) -> Unit) :
     RecyclerView.Adapter<TvShowsAdapter.ViewHolder>() {
 
     private var tvShows = arrayListOf<MovieItem>()
@@ -37,7 +37,7 @@ class TvShowsAdapter(var onClick: (MovieItem) -> Unit) :
             setOnClickListener { onClick(tvShow) }
             tv_list_title.text = tvShow.title
             tv_list_title.isSelected = true
-            Glide.with(itemView).load(tvShow.posterUrl).into(iv_list_poster)
+            iv_list_poster.load(tvShow.posterUrl, R.drawable.placeholder_poster_portrait)
             tv_list_rating.text = "${tvShow.voteAverage}"
             tv_list_genre.text = String.format(context.getString(R.string.count_voters), tvShow.voteCount)
             tv_list_release_date.text = tvShow.releaseDate.toNormalDateFormat()

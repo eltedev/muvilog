@@ -1,7 +1,12 @@
 package dev.hyuwah.dicoding.muvilog
 
 import android.app.Activity
+import android.graphics.drawable.GradientDrawable
 import android.view.View
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import dev.hyuwah.dicoding.muvilog.data.Constants
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,4 +33,16 @@ fun View.setVisible() {
 
 fun View.setGone() {
     this.visibility = View.GONE
+}
+
+fun ImageView.load(url: String, @DrawableRes placeholder: Int) {
+    Glide.with(this).load(url).placeholder(placeholder)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
+}
+
+fun ImageView.load(gradientDrawable: GradientDrawable){
+    Glide.with(this).load(gradientDrawable)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
 }

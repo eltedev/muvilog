@@ -7,6 +7,7 @@ import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
 import dev.hyuwah.dicoding.muvilog.presentation.favorite.FavoriteListFragment
 import dev.hyuwah.dicoding.muvilog.presentation.search.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import me.ibrahimsn.lib.OnItemSelectedListener
 
 class MainActivity : BaseActivity() {
 
@@ -14,6 +15,7 @@ class MainActivity : BaseActivity() {
     private lateinit var favoriteListFragment: FavoriteListFragment
     private lateinit var searchFragment: SearchFragment
     private lateinit var currentActive: Fragment
+    private var activePos: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +35,7 @@ class MainActivity : BaseActivity() {
 
         currentActive = homeListFragment
 
-        if(savedInstanceState==null) {
+        if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.content_fl_main, favoriteListFragment, TAG_FAVORITE_LIST)
                 .hide(favoriteListFragment)
@@ -43,29 +45,30 @@ class MainActivity : BaseActivity() {
                 .commit()
         }
 
-        root_bottom_nav.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.action_home -> {
-                    swapFragment(TAG_HOME_LIST)
-                    true
+        root_smooth_bottom_nav.setOnItemSelectedListener(object : OnItemSelectedListener {
+            override fun onItemSelect(pos: Int) {
+                activePos = pos
+                when (pos) {
+                    0 -> {
+                        swapFragment(TAG_HOME_LIST)
+                    }
+                    1 -> {
+                        swapFragment(TAG_SEARCH_LIST)
+                    }
+                    2 -> {
+                        swapFragment(TAG_FAVORITE_LIST)
+                    }
                 }
-                R.id.action_search -> {
-                    swapFragment(TAG_SEARCH_LIST)
-                    true
-                }
-                R.id.action_favorite -> {
-                    swapFragment(TAG_FAVORITE_LIST)
-                    true
-                }
-                else -> false
             }
-        }
+        })
     }
 
     private fun swapFragment(tag: String) {
         supportFragmentManager.findFragmentByTag(tag)?.let { fragment ->
             supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .hide(currentActive)
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .show(fragment).commit()
             currentActive = fragment
         }
@@ -73,18 +76,26 @@ class MainActivity : BaseActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("selectedItemId", root_bottom_nav.selectedItemId)
+        outState.putInt("selectedItem", activePos)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState?.getInt("selectedItem")?.let {
-            root_bottom_nav.selectedItemId = it
-            when (root_bottom_nav.selectedItemId) {
-                R.id.action_home -> swapFragment(TAG_HOME_LIST)
-                R.id.action_search -> swapFragment(TAG_SEARCH_LIST)
-                R.id.action_favorite -> swapFragment(TAG_FAVORITE_LIST)
+            activePos = it
+            root_smooth_bottom_nav.setActiveItem(it)
+            when (activePos) {
+                0 -> {
+                    swapFragment(TAG_HOME_LIST)
+                }
+                1 -> {
+                    swapFragment(TAG_SEARCH_LIST)
+                }
+                2 -> {
+                    swapFragment(TAG_FAVORITE_LIST)
+                }
             }
+
         }
     }
 

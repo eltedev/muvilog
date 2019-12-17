@@ -4,6 +4,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import dev.hyuwah.dicoding.muvilog.BuildConfig
 import dev.hyuwah.dicoding.muvilog.data.remote.ITheMovieDbServices
 import okhttp3.OkHttpClient
@@ -19,13 +20,13 @@ class NetworkModule {
         const val BASE_URL = "https://api.themoviedb.org/3/"
     }
 
-    @Singleton
+    @Reusable
     @Provides
     fun provideMoshi(): Moshi {
         return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     }
 
-    @Singleton
+    @Reusable
     @Provides
     fun provideOkhttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
@@ -45,7 +46,7 @@ class NetworkModule {
             .build()
     }
 
-    @Singleton
+    @Reusable
     @Provides
     fun provideRetrofitClient(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
