@@ -24,6 +24,7 @@
             android:layout_height="150dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
+            android:transitionName="transition_test"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -1,10 +1,13 @@
 package dev.hyuwah.dicoding.muvilog.presentation.home.list
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
@@ -15,7 +18,7 @@ import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import dev.hyuwah.dicoding.muvilog.presentation.model.base.Resource
 import dev.hyuwah.dicoding.muvilog.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.fragment_movie_list.*
-import org.jetbrains.anko.support.v4.startActivity
+import kotlinx.android.synthetic.main.row_main_movies.view.*
 import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
@@ -34,8 +37,14 @@ class MovieListFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = MoviesAdapter {
-            startActivity<MovieDetailActivity>(MovieDetailActivity.MOVIE_KEY to it)
+        adapter = MoviesAdapter { movieItem, itemView ->
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity(),
+                Pair(itemView.iv_list_poster, "transition_test")
+            )
+            val intents = Intent(requireActivity(), MovieDetailActivity::class.java)
+            intents.putExtra(MovieDetailActivity.MOVIE_KEY, movieItem)
+            startActivity(intents, options.toBundle())
         }
 
         rv_movie_list.layoutManager = LinearLayoutManager(requireContext())

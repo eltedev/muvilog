@@ -12,7 +12,7 @@ import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
 import dev.hyuwah.dicoding.muvilog.toNormalDateFormat
 import kotlinx.android.synthetic.main.row_main_movies.view.*
 
-class MoviesAdapter(private var onClick: (MovieItem) -> Unit) :
+class MoviesAdapter(private var onClick: (MovieItem, View) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieItem>() {
@@ -45,8 +45,8 @@ class MoviesAdapter(private var onClick: (MovieItem) -> Unit) :
 
     inner class ViewHolder(private var view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(movie: MovieItem, onClick: (MovieItem) -> Unit) = with(view) {
-            cv_container.setOnClickListener { onClick(movie) }
+        fun bind(movie: MovieItem, onClick: (MovieItem, View) -> Unit) = with(view) {
+            cv_container.setOnClickListener { onClick(movie, this) }
             tv_list_title.text = movie.title
             tv_list_title.isSelected = true
             iv_list_poster.load(movie.posterUrl, R.drawable.placeholder_poster_portrait)
