@@ -3,7 +3,9 @@ package dev.hyuwah.dicoding.muvilog.data.remote
 import dev.hyuwah.dicoding.muvilog.data.remote.model.DiscoverMoviesResponse
 import dev.hyuwah.dicoding.muvilog.data.remote.model.DiscoverTvResponse
 import dev.hyuwah.dicoding.muvilog.data.remote.model.MoviesResponse
+import dev.hyuwah.dicoding.muvilog.data.remote.model.ReviewResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ITheMovieDbServices {
@@ -72,5 +74,10 @@ interface ITheMovieDbServices {
         @Query("primary_release_date.gte") releaseDateGte: String,
         @Query("primary_release_date.lte") releaseDateLte: String
     ): DiscoverMoviesResponse
+
+    @GET("movie/{id}/reviews")
+    suspend fun getMovieReview(
+        @Path("id") id:String
+    ): ReviewResponse
 
 }

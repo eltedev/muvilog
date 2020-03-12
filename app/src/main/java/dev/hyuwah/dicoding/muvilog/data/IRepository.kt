@@ -3,6 +3,7 @@ package dev.hyuwah.dicoding.muvilog.data
 import androidx.lifecycle.LiveData
 import dev.hyuwah.dicoding.muvilog.data.local.entity.FavoriteMovie
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
+import dev.hyuwah.dicoding.muvilog.presentation.model.ReviewItem
 
 interface IRepository {
 
@@ -13,6 +14,7 @@ interface IRepository {
      suspend fun fetchNowPlayingMovies(lang: String): List<MovieItem>
      suspend fun fetchTopRatedMovies(lang: String): List<MovieItem>
      suspend fun fetchUpcomingMovies(lang: String): List<MovieItem>
+     suspend fun fetchMovieReview(id:String): List<ReviewItem>
 
      suspend fun fetchPopularTvShow()
 

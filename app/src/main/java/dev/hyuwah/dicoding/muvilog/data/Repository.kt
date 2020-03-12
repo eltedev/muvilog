@@ -5,6 +5,7 @@ import dev.hyuwah.dicoding.muvilog.data.local.entity.FavoriteMovie
 import dev.hyuwah.dicoding.muvilog.data.remote.ITheMovieDbServices
 import dev.hyuwah.dicoding.muvilog.data.remote.model.toPresentation
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
+import dev.hyuwah.dicoding.muvilog.presentation.model.ReviewItem
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -57,6 +58,14 @@ class Repository @Inject constructor(
     override suspend fun fetchUpcomingMovies(lang: String) : List<MovieItem>  {
         return try {
             tmdbServices.getTopRatedMovies("id",1,"ID").toPresentation()
+        } catch (e: Throwable){
+            listOf()
+        }
+    }
+
+    override suspend fun fetchMovieReview(id:String) : List<ReviewItem>  {
+        return try {
+            tmdbServices.getMovieReview(id).toPresentation()
         } catch (e: Throwable){
             listOf()
         }

@@ -4,9 +4,13 @@ import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -16,14 +20,19 @@ import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.load
 import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
+import dev.hyuwah.dicoding.muvilog.presentation.model.ReviewItem
+import dev.hyuwah.dicoding.muvilog.presentation.model.base.Resource
 import dev.hyuwah.dicoding.muvilog.presentation.widget.FavoritesWidget
 import dev.hyuwah.dicoding.muvilog.toNormalDateFormat
+import dev.hyuwah.dicoding.muvilog.utils.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.view_detail_description.*
+import kotlinx.android.synthetic.main.view_detail_review.*
 import kotlinx.android.synthetic.main.view_detail_rounded_poster_with_shadow.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import javax.inject.Inject
+
 
 class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
 
@@ -42,6 +51,10 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
     @Inject lateinit var viewModel: MovieDetailViewModel
     private lateinit var type: String
 
+    @Inject lateinit var reviewViewModel: ReviewListViewModel
+
+    private lateinit var adapter: ReviewAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
@@ -50,7 +63,6 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-
         if (intent.hasExtra("movie_detail")){
             val movie = intent.getParcelableExtra<MovieItem>("movie_detail")
             val category = intent.getStringExtra("category")
@@ -58,6 +70,12 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
             type = getString(R.string.now_playing)
             viewModel.setMovieAndType(movie, category)
             setupView(movie)
+
+            if (savedInstanceState==null) {
+                reviewViewModel.state.observe(this, ::updateUI)
+                reviewViewModel.load(movie.id.toString())
+            }
+
         }
 
         viewModel.isFavorite().observe(this, Observer { isFavorite ->
@@ -76,6 +94,22 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
             }
             sendIntentToUpdateWidget()
         })
+
+        adapter = ReviewAdapter {
+
+        }
+
+        val linearLayoutManager = LinearLayoutManager(this);
+
+        rv_review.layoutManager = linearLayoutManager
+
+        val dividerItemDecoration = DividerItemDecoration(
+            rv_review.getContext(),
+            linearLayoutManager.getOrientation()
+        )
+        rv_review.addItemDecoration(dividerItemDecoration)
+
+        rv_review.adapter = adapter
     }
 
     private fun sendIntentToUpdateWidget() {
@@ -93,6 +127,35 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
         tv_detail_rating.text = movieItem.voteAverage.toString()
         tv_detail_overview.text = movieItem.overview
         createBlurBg(movieItem.posterUrl)
+    }
+
+    private fun updateUI(resource: Resource<List<ReviewItem>>){
+        showNoInternetView(false)
+        when(resource){
+            is Resource.Loading -> {
+                EspressoIdlingResource.increment()
+                showLoading(true)
+            }
+            is Resource.Success -> {
+                EspressoIdlingResource.decrement()
+                showLoading(false)
+                adapter.setReviewList(resource.data)
+            }
+            is Resource.Failure -> {
+                EspressoIdlingResource.decrement()
+                showLoading(false)
+                showNoInternetView(true)
+                toast("Error ${resource.throwable.localizedMessage}")
+            }
+        }
+    }
+
+    private fun showNoInternetView(toggle: Boolean){
+        tv_no_internet.visibility = if(toggle) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoading(toggle: Boolean){
+        //srl_movie_list.isRefreshing = toggle
     }
 
     private fun createBlurBg(posterUrl: String) {
