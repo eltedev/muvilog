@@ -10,7 +10,15 @@ import dev.hyuwah.dicoding.muvilog.R
 import dev.hyuwah.dicoding.muvilog.data.local.entity.FavoriteMovie
 import dev.hyuwah.dicoding.muvilog.load
 import dev.hyuwah.dicoding.muvilog.toNormalDateFormat
+import kotlinx.android.synthetic.main.row_main_movies.view.*
 import kotlinx.android.synthetic.main.row_movie_tv_item.view.*
+import kotlinx.android.synthetic.main.row_movie_tv_item.view.cv_container
+import kotlinx.android.synthetic.main.row_movie_tv_item.view.iv_list_poster
+import kotlinx.android.synthetic.main.row_movie_tv_item.view.tv_list_genre
+import kotlinx.android.synthetic.main.row_movie_tv_item.view.tv_list_rating
+import kotlinx.android.synthetic.main.row_movie_tv_item.view.tv_list_release_date
+import kotlinx.android.synthetic.main.row_movie_tv_item.view.tv_list_title
+import kotlinx.android.synthetic.main.row_movie_tv_item.view.tv_overview
 
 class MovieTvListAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -57,16 +65,13 @@ class MovieTvListAdapter(private val interaction: Interaction? = null) :
         fun bind(movie: FavoriteMovie) = with(itemView) {
             cv_container.setOnClickListener { interaction?.onItemSelected(adapterPosition, movie) }
 
-            tv_favorite_category.text = when(movie.category){
-                "movie" -> "MOVIE"
-                "tvshow" -> "TV SHOW"
-                else -> ""
-            }
+            tv_favorite_category.text = movie.category
 
             tv_list_title.text = movie.title
             tv_list_title.isSelected = true
             iv_list_poster.load(movie.posterUrl, R.drawable.placeholder_poster_portrait)
             tv_list_rating.text = "${movie.voteAverage}"
+            tv_overview.text = movie.overview
             tv_list_genre.text = String.format(context.getString(R.string.count_voters), movie.voteCount)
             tv_list_release_date.text = movie.releaseDate.toNormalDateFormat()
         }

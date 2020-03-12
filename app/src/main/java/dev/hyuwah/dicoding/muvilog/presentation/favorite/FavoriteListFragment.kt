@@ -1,5 +1,6 @@
 package dev.hyuwah.dicoding.muvilog.presentation.favorite
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,9 +54,11 @@ class FavoriteListFragment : DaggerFragment(), MovieTvListAdapter.Interaction {
     }
 
     override fun onItemSelected(position: Int, item: FavoriteMovie) {
-        val key =
-            if (item.category == "movie") MovieDetailActivity.MOVIE_KEY else MovieDetailActivity.TV_SHOW_KEY
-        startActivity<MovieDetailActivity>(key to item.toMovieItem())
+
+        val intent = Intent(activity, MovieDetailActivity::class.java)
+        intent.putExtra("movie_detail", item.toMovieItem())
+        intent.putExtra("category", item.category)
+        startActivity(intent)
     }
 
     private fun updateUI(state: Resource<List<FavoriteMovie>>){

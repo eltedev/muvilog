@@ -1,6 +1,7 @@
 package dev.hyuwah.dicoding.muvilog.presentation.search
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -68,9 +69,22 @@ class SearchFragment : DaggerFragment(), MovieTvListAdapter.Interaction {
     }
 
     override fun onItemSelected(position: Int, item: FavoriteMovie) {
-        val key =
-            if (item.category == Constants.MOVIE_KEY) MovieDetailActivity.MOVIE_KEY else MovieDetailActivity.TV_SHOW_KEY
-        startActivity<MovieDetailActivity>(key to item.toMovieItem())
+//        val key =
+//            if (item.category == Constants.POPULAR_KEY)
+//                MovieDetailActivity.POPULAR_KEY
+//            else if (item.category == Constants.UPCOMING_KEY)
+//                MovieDetailActivity.UPCOMING_KEY
+//            else if (item.category == Constants.TOP_RATED_KEY)
+//                MovieDetailActivity.TOP_RATED_KEY
+//            else MovieDetailActivity.NOW_PLAYING_KEY
+//        val intent = activity?.intent?.putExtra("movie_detail", item.toMovieItem())
+////        startActivity<MovieDetailActivity>(item.toMovieItem())
+//        intent = in(this, MovieDetailActivity.javaClass)
+
+        val intent = Intent(activity, MovieDetailActivity::class.java)
+        intent.putExtra("movie_detail", item.toMovieItem())
+        intent.putExtra("category", item.category)
+        startActivity(intent)
     }
 
     private fun updateUI(state: Resource<List<FavoriteMovie>>) {

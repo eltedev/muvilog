@@ -30,12 +30,36 @@ class Repository @Inject constructor(
         }
     }
 
-    override suspend fun fetchPopularMovies()  {
-        tmdbServices.getPopularMovies("id",1,"ID").toPresentation()
+    override suspend fun fetchPopularMovies(lang: String) : List<MovieItem>  {
+        return try {
+            tmdbServices.getPopularMovies("id",1,"ID").toPresentation()
+        } catch (e: Throwable){
+            listOf()
+        }
     }
 
-    override suspend fun fetchNowPlayingMovies() {
-        tmdbServices.getNowPlayingMovies("id",1,"ID").toPresentation()
+    override suspend fun fetchNowPlayingMovies(lang: String) : List<MovieItem>  {
+        return try {
+            tmdbServices.getNowPlayingMovies("id",1,"ID").toPresentation()
+        } catch (e: Throwable){
+            listOf()
+        }
+    }
+
+    override suspend fun fetchTopRatedMovies(lang: String) : List<MovieItem>  {
+        return try {
+            tmdbServices.getTopRatedMovies("id",1,"ID").toPresentation()
+        } catch (e: Throwable){
+            listOf()
+        }
+    }
+
+    override suspend fun fetchUpcomingMovies(lang: String) : List<MovieItem>  {
+        return try {
+            tmdbServices.getTopRatedMovies("id",1,"ID").toPresentation()
+        } catch (e: Throwable){
+            listOf()
+        }
     }
 
     override suspend fun fetchPopularTvShow() {

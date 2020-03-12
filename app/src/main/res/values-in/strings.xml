@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Muvilog</string>
+    <string name="app_name">The Movies</string>
     <string name="detail_activity_title">Detil</string>
     <string name="lang_title">Bahasa</string>
     <string name="pref_general_category">Umum</string>
-    <string name="tab_title_movie">Movie</string>
+    <string name="now_playing">Sedang Berlangsung</string>
     <string name="tab_title_tv_show">Serial TV</string>
     <string name="title_activity_settings">Pengaturan</string>
     <string name="detail_runtime">Durasi: %d menit</string>
@@ -13,7 +13,7 @@
     <string name="runtime_mins">%d menit</string>
     <string name="no_internet_connection">Tidak Ada Koneksi Internet</string>
     <string name="favorite_empty_desc">Kamu belum memfavoritkan apapun…</string>
-    <string name="home">Beranda</string>
+    <string name="home">Film</string>
     <string name="favorite">Favorit</string>
     <string name="notify_saved_to_favorite">Tersimpan ke favorit</string>
     <string name="notify_removed_from_favorite">Terhapus dari favorit</string>
@@ -21,7 +21,7 @@
     <string name="search">Cari</string>
     <string name="widget_title">"❤️ Movies &amp; TV Show "</string>
     <string name="reminder_daily_title">Pengingat Harian</string>
-    <string name="reminder_daily_content_text">Hey, jangan lupa untuk mengecek film atau tayangan tv baru hari ini di Muvilog</string>
+    <string name="reminder_daily_content_text">Hey, jangan lupa untuk mengecek film atau tayangan tv baru hari ini di The Movies</string>
     <string name="reminder_release_today_content_text">Berikut film-film yang dirilis hari ini</string>
     <string name="reminder_release_today_title">Rilis Hari Ini</string>
     <string name="release_today_content">\u0020di rilis hari ini!</string>
@@ -29,4 +29,8 @@
     <string name="daily_reminder_summary_on">Pengingat harian aktif @ 7AM</string>
     <string name="today_release_reminder_summary_on">Pengingat rilis hari ini aktif @ 8AM</string>
     <string name="today_releaase_reminder_title">Pengingat Rilis Hari Ini</string>
+    <string name="popular">Populer</string>
+    <string name="upcoming">Akan hadir</string>
+    <string name="top_rated">Rating Teratas</string>
+    <string name="overview">Gambaran Ikhtisar</string>
 </resources>

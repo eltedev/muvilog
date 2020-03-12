@@ -48,6 +48,7 @@ class MoviesAdapter(private var onClick: (MovieItem) -> Unit) :
         fun bind(movie: MovieItem, onClick: (MovieItem) -> Unit) = with(view) {
             cv_container.setOnClickListener { onClick(movie) }
             tv_list_title.text = movie.title
+            tv_overview.text = movie.overview
             tv_list_title.isSelected = true
             iv_list_poster.load(movie.posterUrl, R.drawable.placeholder_poster_portrait)
             tv_list_rating.text = "${movie.voteAverage}"

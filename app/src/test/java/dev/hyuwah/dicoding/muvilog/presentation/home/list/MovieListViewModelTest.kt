@@ -45,7 +45,7 @@ class MovieListViewModelTest {
     fun `fetch movies happy flow empty`(){
         val mockObserver = createMockObserver()
         viewModel.state.observeForever(mockObserver)
-        coEvery { repository.fetchDiscoverMovies(any()) } returns listOf()
+        coEvery { repository.fetchNowPlayingMovies(any()) } returns listOf()
 
         // When
         viewModel.load()
@@ -60,7 +60,7 @@ class MovieListViewModelTest {
     fun `fetch movies happy flow`(){
         val mockObserver = createMockObserver()
         viewModel.state.observeForever(mockObserver)
-        coEvery { repository.fetchDiscoverMovies(any()) } returns DummyData.MovieList.normal()
+        coEvery { repository.fetchNowPlayingMovies(any()) } returns DummyData.MovieList.normal()
 
         // When
         viewModel.load()

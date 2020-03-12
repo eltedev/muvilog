@@ -32,10 +32,12 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
 
-    companion object {
-        const val MOVIE_KEY = "movie"
-        const val TV_SHOW_KEY = "tvshow"
-    }
+//    companion object {
+//        const val POPULAR_KEY = "popular"
+//        const val NOW_PLAYING_KEY = "now_playing"
+//        const val TOP_RATED_KEY = "top_rated"
+//        const val UPCOMING_KEY = "upcoming"
+//    }
 
     @Inject lateinit var viewModel: MovieDetailViewModel
     private lateinit var type: String
@@ -48,20 +50,14 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        val movie = intent.getParcelableExtra<MovieItem>(MOVIE_KEY)
-        movie?.let {
-            supportActionBar?.title = it.title
-            type = getString(R.string.tab_title_movie)
-            viewModel.setMovieAndType(it, MOVIE_KEY)
-            setupView(it)
-        }
 
-        val tvShow = intent.getParcelableExtra<MovieItem>(TV_SHOW_KEY)
-        tvShow?.let {
-            supportActionBar?.title = it.title
-            type = getString(R.string.tab_title_tv_show)
-            viewModel.setMovieAndType(it, TV_SHOW_KEY)
-            setupView(it)
+        if (intent.hasExtra("movie_detail")){
+            val movie = intent.getParcelableExtra<MovieItem>("movie_detail")
+            val category = intent.getStringExtra("category")
+            supportActionBar?.title = movie.title
+            type = getString(R.string.now_playing)
+            viewModel.setMovieAndType(movie, category)
+            setupView(movie)
         }
 
         viewModel.isFavorite().observe(this, Observer { isFavorite ->
@@ -91,7 +87,7 @@ class MovieDetailActivity : BaseActivity(), HasAndroidInjector {
     private fun setupView(movieItem: MovieItem) {
         iv_detail_poster.load(movieItem.posterUrl, R.drawable.placeholder_poster_portrait)
         iv_backdrop.load(movieItem.backdropUrl, R.drawable.placeholder_poster_landscape)
-        tv_detail_title.text = type
+        //tv_detail_title.text = type
         tv_detail_genre.text = String.format(getString(R.string.count_voters), movieItem.voteCount)
         tv_detail_runtime.text = movieItem.releaseDate.toNormalDateFormat()
         tv_detail_rating.text = movieItem.voteAverage.toString()

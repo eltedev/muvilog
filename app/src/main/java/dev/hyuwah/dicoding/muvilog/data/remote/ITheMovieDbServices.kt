@@ -35,6 +35,20 @@ interface ITheMovieDbServices {
         @Query("region") region: String
     ): MoviesResponse
 
+    @GET("movie/top_rated")
+    suspend fun getTopRatedMovies(
+        @Query("language") lang: String,
+        @Query("page") page: Int,
+        @Query("region") region: String
+    ): MoviesResponse
+
+    @GET("movie/upcoming")
+    suspend fun getUpcomingMovies(
+        @Query("language") lang: String,
+        @Query("page") page: Int,
+        @Query("region") region: String
+    ): MoviesResponse
+
     @GET("tv/popular")
     suspend fun getPopularTvShow(
         @Query("language") lang: String,

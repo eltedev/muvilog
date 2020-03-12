@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.hyuwah.dicoding.muvilog.data.Constants
 import dev.hyuwah.dicoding.muvilog.data.Repository
 import dev.hyuwah.dicoding.muvilog.data.local.SharedPrefSource
 import dev.hyuwah.dicoding.muvilog.presentation.model.MovieItem
@@ -21,11 +22,22 @@ class MovieListViewModel @Inject constructor(
     private var _state = MutableLiveData<Resource<List<MovieItem>>>()
     val state: LiveData<Resource<List<MovieItem>>> = _state
 
-    fun load() {
+    fun load(movieKey:String) {
         _state.postValue(Resource.Loading)
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _state.postValue(Resource.Success(repository.fetchDiscoverMovies(lang)))
+
+                if (movieKey.equals(Constants.POPULAR_KEY)){
+                    _state.postValue(Resource.Success(repository.fetchPopularMovies(lang)))
+                }else if (movieKey.equals(Constants.UPCOMING_KEY)){
+                    _state.postValue(Resource.Success(repository.fetchUpcomingMovies(lang)))
+                }else if (movieKey.equals(Constants.TOP_RATED_KEY)){
+                    _state.postValue(Resource.Success(repository.fetchTopRatedMovies(lang)))
+                }else{
+                    _state.postValue(Resource.Success(repository.fetchNowPlayingMovies(lang)))
+                }
+
+
             } catch (t: Throwable) {
                 _state.postValue(Resource.Failure(t))
             }

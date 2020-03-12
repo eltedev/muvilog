@@ -1,6 +1,7 @@
 package dev.hyuwah.dicoding.muvilog.presentation.home.list
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,9 @@ import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
-class MovieListFragment : DaggerFragment() {
+class MovieListFragment @Inject constructor(
+    private val movieKey : String
+) : DaggerFragment() {
 
     @Inject
     lateinit var viewModel: MovieListViewModel
@@ -35,16 +38,20 @@ class MovieListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = MoviesAdapter {
-            startActivity<MovieDetailActivity>(MovieDetailActivity.MOVIE_KEY to it)
+
+            val intent = Intent(activity, MovieDetailActivity::class.java)
+            intent.putExtra("movie_detail", it)
+            intent.putExtra("category", movieKey)
+            startActivity(intent)
         }
 
         rv_movie_list.layoutManager = LinearLayoutManager(requireContext())
         rv_movie_list.adapter = adapter
 
         viewModel.state.observe(this, ::updateUI)
-        if (savedInstanceState==null) viewModel.load()
+        if (savedInstanceState==null) viewModel.load(movieKey)
 
-        srl_movie_list.setOnRefreshListener { viewModel.load() }
+        srl_movie_list.setOnRefreshListener { viewModel.load(movieKey) }
     }
 
     private fun updateUI(resource: Resource<List<MovieItem>>){

@@ -27,8 +27,8 @@ class SearchViewModel @Inject constructor(
     fun search(query: String){
         _state.value = Resource.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            val movieList = repository.searchMovie(query, lang).map { it.toFavoriteMovie(Constants.MOVIE_KEY) }
-            val tvList = repository.searchTv(query, lang).map { it.toFavoriteMovie(Constants.TV_SHOW_KEY) }
+            val movieList = repository.searchMovie(query, lang).map { it.toFavoriteMovie(Constants.POPULAR_KEY) }
+            val tvList = repository.searchTv(query, lang).map { it.toFavoriteMovie(Constants.NOW_PLAYING_KEY) }
             val result = movieList + tvList
             _state.postValue(Resource.Success(result.sortedWith(compareBy({-it.voteCount},{-it.voteAverage}))))
         }

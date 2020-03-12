@@ -9,8 +9,10 @@ interface IRepository {
     suspend fun fetchDiscoverMovies(lang: String): List<MovieItem>
     suspend fun fetchDiscoverTvShow(lang: String): List<MovieItem>
 
-     suspend fun fetchPopularMovies()
-     suspend fun fetchNowPlayingMovies()
+     suspend fun fetchPopularMovies(lang: String): List<MovieItem>
+     suspend fun fetchNowPlayingMovies(lang: String): List<MovieItem>
+     suspend fun fetchTopRatedMovies(lang: String): List<MovieItem>
+     suspend fun fetchUpcomingMovies(lang: String): List<MovieItem>
 
      suspend fun fetchPopularTvShow()
 

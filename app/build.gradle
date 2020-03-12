@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField 'String', 'MOVIE_DB_KEY', '"72d6d60dd6706f5c433560d444ae9ba3"'
+        buildConfigField 'String', 'MOVIE_DB_KEY', '"b0cb689877f18b5878840598ec816aab"'
     }
     buildTypes {
         release {

@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import dev.hyuwah.dicoding.muvilog.R
+import dev.hyuwah.dicoding.muvilog.data.Constants.NOW_PLAYING_KEY
+import dev.hyuwah.dicoding.muvilog.data.Constants.POPULAR_KEY
+import dev.hyuwah.dicoding.muvilog.data.Constants.TOP_RATED_KEY
+import dev.hyuwah.dicoding.muvilog.data.Constants.UPCOMING_KEY
 import dev.hyuwah.dicoding.muvilog.presentation.base.BaseActivity
 import dev.hyuwah.dicoding.muvilog.presentation.home.adapter.MainViewPagerAdapter
 import dev.hyuwah.dicoding.muvilog.presentation.home.list.MovieListFragment
@@ -27,12 +31,15 @@ class HomeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (act as BaseActivity).setSupportActionBar(toolbar)
-        toolbar.title = "Muvilog"
+        toolbar.title = getString(R.string.app_name)
 
         tl_category.setupWithViewPager(vp_category)
+        vp_category.offscreenPageLimit = 4
         vp_category.adapter = MainViewPagerAdapter(childFragmentManager).apply {
-            addFragment(MovieListFragment().apply { retainInstance = true }, getString(R.string.tab_title_movie))
-            addFragment(TvShowListFragment().apply { retainInstance = true }, getString(R.string.tab_title_tv_show))
+            addFragment(MovieListFragment(POPULAR_KEY).apply { retainInstance = true }, getString(R.string.popular))
+            addFragment(MovieListFragment(UPCOMING_KEY).apply { retainInstance = true }, getString(R.string.upcoming))
+            addFragment(MovieListFragment(TOP_RATED_KEY).apply { retainInstance = true }, getString(R.string.top_rated))
+            addFragment(MovieListFragment(NOW_PLAYING_KEY).apply { retainInstance = true }, getString(R.string.now_playing))
         }
     }
 

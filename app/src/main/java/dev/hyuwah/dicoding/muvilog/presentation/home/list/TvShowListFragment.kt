@@ -35,7 +35,7 @@ class TvShowListFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = TvShowsAdapter {
-            startActivity<MovieDetailActivity>(MovieDetailActivity.TV_SHOW_KEY to it)
+            //startActivity<MovieDetailActivity>(MovieDetailActivity.NOW_PLAYING_KEY to it)
         }
 
         rv_tv_show_list.layoutManager = LinearLayoutManager(requireContext())

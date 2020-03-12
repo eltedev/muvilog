@@ -39,7 +39,7 @@ class RepositoryTest {
     fun `should handle fetch discover movies network failure`(){
         runBlocking {
             coEvery { services.getDiscoverMovies(any(), any(), any()) } throws Exception()
-            val movies = repository.fetchDiscoverMovies(lang)
+            val movies = repository.fetchNowPlayingMovies(lang)
             assertNotNull(movies)
             assert(movies.isEmpty())
         }
@@ -49,7 +49,7 @@ class RepositoryTest {
     fun `should success fetch empty discover movies`(){
         runBlocking {
             coEvery { services.getDiscoverMovies(any(), any(), any()) } returns DummyData.DiscoverMovie.emptyResponse()
-            val movies = repository.fetchDiscoverMovies(lang)
+            val movies = repository.fetchNowPlayingMovies(lang)
             assertNotNull(movies)
             assert(movies.isEmpty())
         }
@@ -59,7 +59,7 @@ class RepositoryTest {
     fun `should success fetch normal discover movies`(){
         runBlocking {
             coEvery { services.getDiscoverMovies(any(), any(), any()) } returns DummyData.DiscoverMovie.normalResponse()
-            val tvshow = repository.fetchDiscoverMovies(lang)
+            val tvshow = repository.fetchNowPlayingMovies(lang)
             assertNotNull(tvshow)
             assert(tvshow.isNotEmpty())
             assert(tvshow.first().title == "Movie 1")
